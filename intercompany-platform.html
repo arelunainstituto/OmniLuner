@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterCompany Automation Platform</title>
+    <link rel="stylesheet" href="intercompany-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="logo-text">InterCompany</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <a href="#dashboard" class="nav-link" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#catalog" class="nav-link" data-page="catalog">
+                            <i class="fas fa-book"></i>
+                            <span class="nav-text">Catálogo IC</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#requests" class="nav-link" data-page="requests">
+                            <i class="fas fa-file-invoice"></i>
+                            <span class="nav-text">Pedidos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#workflows" class="nav-link" data-page="workflows">
+                            <i class="fas fa-project-diagram"></i>
+                            <span class="nav-text">Fluxos n8n</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#monitoring" class="nav-link" data-page="monitoring">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="nav-text">Monitoramento</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#integrations" class="nav-link" data-page="integrations">
+                            <i class="fas fa-plug"></i>
+                            <span class="nav-text">Integrações</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#audit" class="nav-link" data-page="audit">
+                            <i class="fas fa-shield-alt"></i>
+                            <span class="nav-text">Auditoria</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Admin</span>
+                        <span class="user-role">Sistema</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                    <p class="page-subtitle" id="pageSubtitle">Visão geral da automação intercompany</p>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <div class="status-indicator">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">n8n Online</span>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Novo Pedido
+                        </button>
+                        <div class="notifications">
+                            <button class="notification-btn">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area" id="contentArea">
+                <!-- Dashboard Content -->
+                <div class="page-content" id="dashboard-page">
+                    <!-- Dashboard content will be loaded here -->
+                </div>
+
+                <!-- Catalog Content -->
+                <div class="page-content hidden" id="catalog-page">
+                    <!-- Catalog content will be loaded here -->
+                </div>
+
+                <!-- Requests Content -->
+                <div class="page-content hidden" id="requests-page">
+                    <!-- Requests content will be loaded here -->
+                </div>
+
+                <!-- Workflows Content -->
+                <div class="page-content hidden" id="workflows-page">
+                    <!-- Workflows content will be loaded here -->
+                </div>
+
+                <!-- Monitoring Content -->
+                <div class="page-content hidden" id="monitoring-page">
+                    <!-- Monitoring content will be loaded here -->
+                </div>
+
+                <!-- Integrations Content -->
+                <div class="page-content hidden" id="integrations-page">
+                    <!-- Integrations content will be loaded here -->
+                </div>
+
+                <!-- Audit Content -->
+                <div class="page-content hidden" id="audit-page">
+                    <!-- Audit content will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Novo Pedido -->
+    <div class="modal-overlay" id="newRequestModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Novo Pedido InterCompany</h3>
+                <button class="modal-close" onclick="closeModal('newRequestModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newRequestForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Empresa Solicitante</label>
+                            <select class="form-select" name="empresaSolicitante" required>
+                                <option value="">Selecione...</option>
+                                <option value="empresa-a">Empresa A</option>
+                                <option value="empresa-b">Empresa B</option>
+                                <option value="empresa-c">Empresa C</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fornecedor</label>
+                            <select class="form-select" name="fornecedor" required>
+                                <option value="">Selecione...</option>
+                                <option value="fornecedor-1">Fornecedor 1</option>
+                                <option value="fornecedor-2">Fornecedor 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Centro de Custo</label>
+                        <input type="text" class="form-input" name="centroCusto" placeholder="Ex: CC-001">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Itens do Pedido</label>
+                        <div id="itemsList">
+                            <div class="item-row">
+                                <input type="text" class="form-input" placeholder="Produto/Serviço" name="produto[]">
+                                <input type="number" class="form-input" placeholder="Qtd" name="quantidade[]">
+                                <input type="text" class="form-input" placeholder="Unidade" name="unidade[]">
+                                <input type="number" class="form-input" placeholder="Preço Unit." name="preco[]" step="0.01">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeItem(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary mt-2" onclick="addItem()">
+                            <i class="fas fa-plus"></i>
+                            Adicionar Item
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newRequestModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="submitNewRequest()">
+                    <i class="fas fa-paper-plane"></i>
+                    Criar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="intercompany-script.js"></script>
+</body>
+</html>

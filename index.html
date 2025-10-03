@@ -583,3 +583,295 @@
     </script>
 </body>
 </html>
+                            <span class="nav-text">Casos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#estoque" class="nav-link" data-page="estoque">
+                            <i class="fas fa-boxes"></i>
+                            <span class="nav-text">Estoque</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#financeiro" class="nav-link" data-page="financeiro">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span class="nav-text">Financeiro</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#agenda" class="nav-link" data-page="agenda">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="nav-text">Agenda</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tecnicos" class="nav-link" data-page="tecnicos">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-text">Técnicos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#workflow" class="nav-link" data-page="workflow">
+                            <i class="fas fa-project-diagram"></i>
+                            <span class="nav-text">Workflow</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#documentos" class="nav-link" data-page="documentos">
+                            <i class="fas fa-file-medical"></i>
+                            <span class="nav-text">Documentos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#relatorios" class="nav-link" data-page="relatorios">
+                            <i class="fas fa-chart-bar"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#configuracoes" class="nav-link" data-page="configuracoes">
+                            <i class="fas fa-cog"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Dr. Saraiva</span>
+                        <span class="user-role">Administrador</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                    <p class="page-subtitle" id="pageSubtitle">Visão geral do laboratório</p>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Novo Caso
+                        </button>
+                        <div class="notifications">
+                            <button class="notification-btn">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area" id="contentArea">
+                <!-- Dashboard Content -->
+                <div class="page-content" id="dashboard-page">
+                    <!-- Dashboard content will be loaded here -->
+                </div>
+
+                <!-- Pacientes Content -->
+                <div class="page-content hidden" id="pacientes-page">
+                    <div class="page-header">
+                        <h2>Gestão de Pacientes</h2>
+                        <button class="btn btn-primary" id="novoPacienteBtn">
+                            <i class="fas fa-plus"></i>
+                            Novo Paciente
+                        </button>
+                    </div>
+                    
+                    <div class="filters-section">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Buscar pacientes..." id="searchPacientes">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn btn-outline">Todos</button>
+                            <button class="btn btn-outline">Ativos</button>
+                            <button class="btn btn-outline">Inativos</button>
+                        </div>
+                    </div>
+
+                    <div class="patients-grid" id="patientsGrid">
+                        <!-- Patient cards will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Casos Content -->
+                <div class="page-content hidden" id="casos-page">
+                    <!-- Casos content will be loaded here -->
+                </div>
+
+                <!-- Estoque Content -->
+                <div class="page-content hidden" id="estoque-page">
+                    <div class="page-header">
+                        <h2>Gestão de Estoque</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Novo Material
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-truck"></i>
+                                Fornecedores
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="inventory-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-boxes"></i>
+                            <div class="stat-info">
+                                <span class="stat-number">245</span>
+                                <span class="stat-label">Itens em Estoque</span>
+                            </div>
+                        </div>
+                        <div class="stat-card alert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div class="stat-info">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Estoque Baixo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financeiro Content -->
+                <div class="page-content hidden" id="financeiro-page">
+                    <div class="page-header">
+                        <h2>Gestão Financeira</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Nova Fatura
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-file-export"></i>
+                                Exportar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="financial-overview">
+                        <div class="finance-card">
+                            <h3>Receitas do Mês</h3>
+                            <span class="amount positive">€ 45.230,00</span>
+                        </div>
+                        <div class="finance-card">
+                            <h3>Contas a Receber</h3>
+                            <span class="amount">€ 12.450,00</span>
+                        </div>
+                        <div class="finance-card">
+                            <h3>Contas a Pagar</h3>
+                            <span class="amount negative">€ 8.320,00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agenda Content -->
+                <div class="page-content hidden" id="agenda-page">
+                    <div class="page-header">
+                        <h2>Agenda e Calendário</h2>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Novo Agendamento
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="btn btn-outline">&lt;</button>
+                            <h3>Janeiro 2024</h3>
+                            <button class="btn btn-outline">&gt;</button>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- Calendar will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Técnicos Content -->
+                <div class="page-content hidden" id="tecnicos-page">
+                    <!-- Técnicos content will be loaded here -->
+                </div>
+
+                <!-- Workflow Content -->
+                <div class="page-content hidden" id="workflow-page">
+                    <!-- Workflow content will be loaded here -->
+                </div>
+
+                <!-- Documentos Content -->
+                <div class="page-content hidden" id="documentos-page">
+                    <div class="page-header">
+                        <h2>Gestão de Documentos</h2>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-upload"></i>
+                            Upload Documento
+                        </button>
+                    </div>
+                    
+                    <div class="document-categories">
+                        <div class="category-card">
+                            <i class="fas fa-x-ray"></i>
+                            <h3>Exames</h3>
+                            <span class="doc-count">24 documentos</span>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-camera"></i>
+                            <h3>Fotos</h3>
+                            <span class="doc-count">156 documentos</span>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-prescription"></i>
+                            <h3>Receitas</h3>
+                            <span class="doc-count">89 documentos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relatórios Content -->
+                <div class="page-content hidden" id="relatorios-page">
+                    <!-- Relatórios content will be loaded here -->
+                </div>
+
+                <!-- Configurações Content -->
+                <div class="page-content hidden" id="configuracoes-page">
+                    <div class="page-header">
+                        <h2>Configurações do Sistema</h2>
+                    </div>
+                    
+                    <div class="settings-sections">
+                        <div class="settings-card">
+                            <h3>Usuários e Permissões</h3>
+                            <p>Gerenciar usuários, papéis e permissões do sistema</p>
+                            <button class="btn btn-outline">Configurar</button>
+                        </div>
+                        <div class="settings-card">
+                            <h3>Especialidades</h3>
+                            <p>Configurar tipos de especialidades e procedimentos</p>
+                            <button class="btn btn-outline">Configurar</button>
+                        </div>
+                        <div class="settings-card">
+                            <h3>Integrações</h3>
+                            <p>WhatsApp, Email, Google Calendar e outros sistemas</p>
+                            <button class="btn btn-outline">Configurar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+>>>>>>> 8e2bcfa9403011ba7c36490532ab356591b99acf
+</body>
+</html>

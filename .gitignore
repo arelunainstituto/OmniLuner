@@ -2,6 +2,9 @@
 node_modules/
 .pnp
 .pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Testing
 coverage/
@@ -18,12 +21,22 @@ dist/
 # Environment variables
 .env
 .env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Vercel
 .vercel
 
 # Turbo
 .turbo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS generated files
 .DS_Store
@@ -34,6 +47,7 @@ dist/
 ehthumbs.db
 Thumbs.db
 
+<<<<<<< HEAD
 # IDE
 .vscode/
 .idea/
@@ -47,6 +61,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+=======
+# Logs
+logs
+*.log
+>>>>>>> 8e2bcfa9403011ba7c36490532ab356591b99acf
 
 # Runtime data
 pids
@@ -54,6 +73,7 @@ pids
 *.seed
 *.pid.lock
 
+<<<<<<< HEAD
 # Optional npm cache directory
 .npm
 
@@ -72,3 +92,42 @@ prisma/migrations/dev.db*
 
 # Backup files
 BACKUP_*
+=======
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# next.js build output
+.next
+
+# Nuxt.js build output
+.nuxt
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+>>>>>>> 8e2bcfa9403011ba7c36490532ab356591b99acf
