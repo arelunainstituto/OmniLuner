@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Analytics - Grupo AreLuna</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .areluna-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #f59e0b 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .status-planned { color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-amber-600 min-h-screen">
+    <header class="glass-effect text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-chart-line text-2xl text-green-400"></i>
+                <h1 class="text-2xl font-bold">Portal de Analytics</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="status-planned">
+                    <i class="fas fa-circle text-xs"></i> Planejado
+                </span>
+                <button onclick="window.location.href='../index.html'" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-home mr-2"></i>Portal
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <div class="glass-effect rounded-2xl p-8 text-white">
+            <div class="text-center mb-8">
+                <i class="fas fa-chart-line text-6xl text-green-400 mb-4"></i>
+                <h2 class="text-3xl font-bold mb-4">Portal de Analytics</h2>
+                <p class="text-lg mb-6">Business Intelligence para Grupo AreLuna</p>
+                <div class="bg-green-600 bg-opacity-20 p-3 rounded-lg">
+                    <i class="fas fa-brain mr-2"></i>
+                    <strong>BI Integrado:</strong> Dashboards inteligentes para todas as empresas
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-blue-600 bg-opacity-50 p-6 rounded-xl">
+                    <i class="fas fa-tachometer-alt text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Dashboard Executivo</h3>
+                    <p class="text-sm opacity-80">KPIs consolidados do grupo</p>
+                    <div class="mt-3 text-xs bg-gray-500 bg-opacity-30 px-2 py-1 rounded">Planejado</div>
+                </div>
+                
+                <div class="bg-green-600 bg-opacity-50 p-6 rounded-xl">
+                    <i class="fas fa-chart-pie text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Análise Financeira</h3>
+                    <p class="text-sm opacity-80">Fluxo de caixa e rentabilidade</p>
+                    <div class="mt-3 text-xs bg-gray-500 bg-opacity-30 px-2 py-1 rounded">Planejado</div>
+                </div>
+                
+                <div class="bg-purple-600 bg-opacity-50 p-6 rounded-xl">
+                    <i class="fas fa-users text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Analytics de RH</h3>
+                    <p class="text-sm opacity-80">Produtividade e performance</p>
+                    <div class="mt-3 text-xs bg-gray-500 bg-opacity-30 px-2 py-1 rounded">Planejado</div>
+                </div>
+                
+                <div class="bg-red-600 bg-opacity-50 p-6 rounded-xl">
+                    <i class="fas fa-truck text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Logística BI</h3>
+                    <p class="text-sm opacity-80">Otimização de rotas e frota</p>
+                    <div class="mt-3 text-xs bg-gray-500 bg-opacity-30 px-2 py-1 rounded">Planejado</div>
+                </div>
+                
+                <div class="bg-indigo-600 bg-opacity-50 p-6 rounded-xl">
+                    <i class="fas fa-boxes text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Inventário BI</h3>
+                    <p class="text-sm opacity-80">Análise de estoque e giro</p>
+                    <div class="mt-3 text-xs bg-gray-500 bg-opacity-30 px-2 py-1 rounded">Planejado</div>
+                </div>
+                
+                <div class="bg-pink-600 bg-opacity-50 p-6 rounded-xl">
+                    <i class="fas fa-robot text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">IA Preditiva</h3>
+                    <p class="text-sm opacity-80">Machine Learning e previsões</p>
+                    <div class="mt-3 text-xs bg-gray-500 bg-opacity-30 px-2 py-1 rounded">Futuro</div>
+                </div>
+            </div>
+
+            <div class="bg-green-600 bg-opacity-20 p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-semibold mb-4">Empresas Monitoradas</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-blue-500 bg-opacity-30 p-3 rounded-lg">
+                        <i class="fas fa-building mr-2"></i>
+                        <strong>Vespasian Ventures</strong>
+                        <div class="text-xs mt-1">Holding - Consolidação</div>
+                    </div>
+                    <div class="bg-red-500 bg-opacity-30 p-3 rounded-lg">
+                        <i class="fas fa-heartbeat mr-2"></i>
+                        <strong>Instituto AreLuna</strong>
+                        <div class="text-xs mt-1">Clínica - Agendamentos</div>
+                    </div>
+                    <div class="bg-pink-500 bg-opacity-30 p-3 rounded-lg">
+                        <i class="fas fa-palette mr-2"></i>
+                        <strong>Pinklegion</strong>
+                        <div class="text-xs mt-1">Design - Projetos</div>
+                    </div>
+                    <div class="bg-yellow-500 bg-opacity-30 p-3 rounded-lg">
+                        <i class="fas fa-camera mr-2"></i>
+                        <strong>Papagaio Fotogênico</strong>
+                        <div class="text-xs mt-1">Fotografia - Eventos</div>
+                    </div>
+                    <div class="bg-green-500 bg-opacity-30 p-3 rounded-lg">
+                        <i class="fas fa-cloud mr-2"></i>
+                        <strong>Nuvens Autóctones</strong>
+                        <div class="text-xs mt-1">Tech - Desenvolvimento</div>
+                    </div>
+                    <div class="bg-purple-500 bg-opacity-30 p-3 rounded-lg">
+                        <i class="fas fa-tooth mr-2"></i>
+                        <strong>ProStoral</strong>
+                        <div class="text-xs mt-1">Odonto - Tratamentos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-amber-600 bg-opacity-20 p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-semibold mb-3">Stack Tecnológico</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-chart-bar text-blue-400 mr-2"></i>
+                            <span><strong>Visualização:</strong> Recharts + D3.js</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-database text-green-400 mr-2"></i>
+                            <span><strong>Data Warehouse:</strong> Supabase + Views</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-sync text-purple-400 mr-2"></i>
+                            <span><strong>ETL:</strong> Vercel Cron Jobs</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-brain text-pink-400 mr-2"></i>
+                            <span><strong>IA:</strong> OpenAI + Vercel AI SDK</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-mobile-alt text-amber-400 mr-2"></i>
+                            <span><strong>Mobile:</strong> PWA + Offline</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-red-400 mr-2"></i>
+                            <span><strong>Segurança:</strong> RLS + Auditoria</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-600 bg-opacity-20 p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-semibold mb-3">Roadmap de Desenvolvimento</h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between items-center">
+                        <span><strong>Fase 1:</strong> Dashboard Executivo + KPIs Básicos</span>
+                        <span class="bg-blue-500 px-3 py-1 rounded-full text-xs">Q3 2024</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><strong>Fase 2:</strong> Analytics Financeiro + RH</span>
+                        <span class="bg-blue-500 px-3 py-1 rounded-full text-xs">Q4 2024</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><strong>Fase 3:</strong> BI Operacional (Logística + Inventário)</span>
+                        <span class="bg-gray-500 px-3 py-1 rounded-full text-xs">Q1 2025</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><strong>Fase 4:</strong> IA Preditiva + Machine Learning</span>
+                        <span class="bg-gray-500 px-3 py-1 rounded-full text-xs">Q2 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <button onclick="viewDataSources()" class="bg-green-600 hover:bg-green-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-database text-2xl mb-2"></i>
+                    <div class="font-semibold">Fontes de Dados</div>
+                </button>
+                <button onclick="viewKPIs()" class="bg-blue-600 hover:bg-blue-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-chart-line text-2xl mb-2"></i>
+                    <div class="font-semibold">KPIs Principais</div>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function viewDataSources() {
+            alert('Fontes de Dados Analytics:\n\n📊 Sistemas Integrados:\n• ERP Grupo AreLuna\n• Sistema de Inventário\n• Portal de Empréstimos\n• CRM (futuro)\n• Portal RH (futuro)\n\n🔗 APIs Externas:\n• Microsoft Graph\n• Zoho CRM\n• Evolution API (WhatsApp)\n\n💾 Data Warehouse:\n• Supabase Views\n• Agregações automáticas\n• Histórico completo');
+        }
+
+        function viewKPIs() {
+            alert('KPIs Principais por Empresa:\n\n💰 Financeiro:\n• Receita mensal/anual\n• Margem de lucro\n• Fluxo de caixa\n\n👥 RH:\n• Produtividade\n• Turnover\n• Satisfação\n\n📦 Operacional:\n• Giro de estoque\n• Tempo de entrega\n• Utilização de frota\n\n🎯 Estratégico:\n• ROI por projeto\n• Market share\n• NPS');
+        }
+    </script>
+</body>
+</html>

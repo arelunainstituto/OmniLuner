@@ -1,0 +1,45 @@
+{
+  "name": "@areluna/database",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Database schemas, migrations, and seeds for AreLuna Group ERP",
+  "scripts": {
+    "generate": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:reset": "prisma migrate reset",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx seeds/index.ts",
+    "db:seed:tenant": "tsx seeds/index.ts --tenant",
+    "db:format": "prisma format",
+    "db:validate": "prisma validate",
+    "build": "prisma generate",
+    "dev": "prisma studio",
+    "lint": "eslint . --ext .ts,.js",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1",
+    "bcryptjs": "^2.4.3",
+    "nanoid": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "prisma": "^5.7.1",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.3"
+  },
+  "prisma": {
+    "schema": "schema.prisma",
+    "seed": "tsx seeds/index.ts"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

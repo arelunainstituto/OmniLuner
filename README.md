@@ -1,25 +1,175 @@
-# ProthesisLab - Sistema de Gestão para Laboratório de Próteses
+# Grupo AreLuna - Monorepo Unificado & ProthesisLab
+
+> **Monorepo centralizado** para todos os projetos tecnológicos do Grupo AreLuna, incluindo ERP, Sistema de Inventário, Plataforma de Empréstimos e ProthesisLab.
 
 ## 📋 Descrição
 
-Sistema completo de gestão para laboratórios de próteses dentárias, desenvolvido especificamente para o mercado português. O ProthesisLab oferece uma solução integrada para controle de casos, gestão de pacientes, inventário, financeiro e muito mais.
+Sistema completo de gestão empresarial multi-tenant para o Grupo AreLuna, incluindo um sistema especializado para laboratórios de próteses dentárias (ProthesisLab), desenvolvido especificamente para o mercado português.
 
-## 🚀 Funcionalidades
+## 🏗️ Arquitetura
 
-### ✅ Módulos Implementados
-- **Dashboard**: Visão geral com métricas e indicadores
-- **Gestão de Casos**: Controle completo do workflow de produção
-- **Gestão de Técnicos**: Acompanhamento de performance e produtividade
-- **Workflow**: Visualização e controle dos processos
-- **Relatórios**: Análises detalhadas e exportação de dados
-- **Gestão de Pacientes**: Cadastro e histórico completo
-- **Controle de Estoque**: Inventário de materiais e equipamentos
-- **Módulo Financeiro**: Faturamento, recebimentos e controle fiscal
-- **Agenda**: Agendamento e controle de prazos
-- **Gestão de Documentos**: Armazenamento e organização
-- **Configurações**: Personalização do sistema
+Este monorepo utiliza **Turbo** para gerenciamento eficiente de múltiplos projetos e **npm workspaces** para dependências compartilhadas.
 
-### 🇵🇹 Adaptações para Portugal
+### 📁 Estrutura Organizacional
+
+```
+Grupo AreLuna/
+├── HOLDING/                    # Vespasian Ventures (Holding)
+├── EMPRESAS/                   # Empresas do grupo
+│   ├── Instituto-AreLuna/      # Clínica dental e estética
+│   ├── Pinklegion/            # Comércio e manutenção de veículos
+│   ├── Papagaio-Fotogenico/   # Audiovisual, publicidade e TI
+│   ├── Nuvens-Autoctones/     # Transporte rodoviário e logística
+│   └── ProStoral/             # Dispositivos médicos e próteses
+├── PROJETOS-TECNOLOGICOS/      # Projetos de software
+│   ├── ERP-Grupo-AreLuna/     # Sistema ERP principal
+│   ├── Sistema-Inventario/     # Gestão de inventário
+│   └── Plataforma-Emprestimos/ # Sistema de empréstimos
+├── DOCUMENTACAO/              # Arquitetura, manuais e processos
+├── FERRAMENTAS/              # Scripts, automação e configurações
+├── DADOS/                    # Backups, exports e templates
+└── ARQUIVO/                  # Projetos antigos e documentos históricos
+```
+
+## 🚀 Projetos Tecnológicos
+
+### 1. **ERP Grupo AreLuna** (Principal)
+- **Stack:** Next.js 14 + TypeScript + Prisma + Supabase
+- **Status:** Em desenvolvimento ativo
+- **Funcionalidades:** Multi-tenant, RBAC, Intercompany Orders, Procurement, Logistics
+
+### 2. **ProthesisLab** (Sistema de Gestão para Laboratório de Próteses)
+- **Stack:** HTML5, CSS3, JavaScript (ES6+)
+- **Status:** Funcional, adaptado para Portugal
+- **Funcionalidades:** 
+  - Dashboard com métricas e indicadores
+  - Gestão de Casos e workflow de produção
+  - Gestão de Técnicos e performance
+  - Relatórios e análises detalhadas
+  - Gestão de Pacientes e histórico
+  - Controle de Estoque e inventário
+  - Módulo Financeiro com fiscalidade portuguesa
+  - Agenda e controle de prazos
+  - Gestão de Documentos
+
+### 3. **Sistema de Inventário**
+- **Stack:** Next.js 14 + TypeScript + Supabase + QR Codes
+- **Status:** Funcional, pronto para integração
+- **Funcionalidades:** Gestão de patrimônio, QR codes, impressão de etiquetas
+
+### 4. **Plataforma de Empréstimos**
+- **Stack:** HTML + JavaScript + Chart.js
+- **Status:** Legacy, planejada modernização
+- **Funcionalidades:** Gestão de empréstimos e análise financeira
+
+## 🛠️ Comandos Principais
+
+```bash
+# Instalar dependências
+npm install
+
+# Desenvolvimento (todos os projetos)
+npm run dev
+
+# Build de produção
+npm run build
+
+# Linting
+npm run lint
+
+# Testes
+npm run test
+
+# Formatação de código
+npm run format
+```
+
+## 🏢 Empresas do Grupo
+
+| Empresa | Atividade | CAE |
+|---------|-----------|-----|
+| **Vespasian Ventures** | Holding e gestão | 64200, 70100 |
+| **Instituto AreLuna** | Clínica dental/estética | 86230 |
+| **Pinklegion** | Comércio/manutenção veículos | 45110, 45200 |
+| **Papagaio Fotogénico** | Audiovisual/publicidade/TI | 59110, 73110, 62010 |
+| **Nuvens Autóctones** | Transporte/logística | 49410 |
+| **ProStoral** | Dispositivos médicos | 32500 |
+
+## 🎯 Objetivos Estratégicos
+
+### Curto Prazo (3 meses)
+- ✅ Reorganização da estrutura de pastas
+- ✅ Criação do monorepo unificado
+- 🔄 Finalização do ERP core
+- 🔄 Integração do Sistema de Inventário
+
+### Médio Prazo (6 meses)
+- 📋 Modernização da Plataforma de Empréstimos
+- 📋 Implementação completa do módulo Clínico
+- 📋 Integrações com Microsoft Graph e Zoho CRM
+
+### Longo Prazo (12 meses)
+- 📋 Expansão para outras empresas do grupo
+- 📋 Implementação de BI e analytics avançados
+- 📋 Certificações de segurança e compliance
+
+## 🔧 Stack Tecnológico Padronizado
+
+- **Frontend:** Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
+- **Backend:** Next.js API Routes + Prisma + Supabase
+- **Database:** PostgreSQL (Supabase/Vercel Postgres)
+- **Auth:** NextAuth.js + Azure AD
+- **Deploy:** Vercel
+- **Monorepo:** Turbo + npm workspaces
+
+## 📚 Documentação
+
+- [Arquitetura do Sistema](./DOCUMENTACAO/arquitetura/)
+- [Guias de Desenvolvimento](./DOCUMENTACAO/manuais/)
+- [Processos e Workflows](./DOCUMENTACAO/processos/)
+
+## 🤝 Contribuição
+
+1. Clone o repositório
+2. Instale as dependências: `npm install`
+3. Crie uma branch: `git checkout -b feature/nova-funcionalidade`
+4. Faça suas alterações e commit: `git commit -m "feat: nova funcionalidade"`
+5. Push para a branch: `git push origin feature/nova-funcionalidade`
+6. Abra um Pull Request
+
+## 📄 Licença
+
+MIT © Grupo AreLuna
+
+---
+
+**Desenvolvido com ❤️ pela equipe do Grupo AreLuna**
+=======
+# ProthesisLab - Sistema de Gestão para Laboratório de Próteses
+
+## 🛠️ Comandos Principais
+
+```bash
+# Instalar dependências
+npm install
+
+# Desenvolvimento (todos os projetos)
+npm run dev
+
+# Build de produção
+npm run build
+
+# Linting
+npm run lint
+
+# Testes
+npm run test
+
+# Formatação de código
+npm run format
+```
+
+## 🇵🇹 Adaptações para Portugal (ProthesisLab)
 - **Moeda**: Euro (€) em todo o sistema
 - **Fiscalidade**: 
   - NIF (Número de Identificação Fiscal)
@@ -27,83 +177,66 @@ Sistema completo de gestão para laboratórios de próteses dentárias, desenvol
   - Resumo fiscal automático
 - **Conformidade**: Padrões portugueses de saúde e negócios
 
-## 🛠️ Tecnologias
+## 🏢 Empresas do Grupo
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: CSS Grid, Flexbox, Variáveis CSS
-- **Icons**: Font Awesome
-- **Responsive**: Design mobile-first
-- **Acessibilidade**: WCAG AA
+| Empresa | Atividade | CAE |
+|---------|-----------|-----|
+| **Vespasian Ventures** | Holding e gestão | 64200, 70100 |
+| **Instituto AreLuna** | Clínica dental/estética | 86230 |
+| **Pinklegion** | Comércio/manutenção veículos | 45110, 45200 |
+| **Papagaio Fotogénico** | Audiovisual/publicidade/TI | 59110, 73110, 62010 |
+| **Nuvens Autóctones** | Transporte/logística | 49410 |
+| **ProStoral** | Dispositivos médicos | 32500 |
 
-## 📦 Instalação
+## 🎯 Objetivos Estratégicos
 
-1. Clone o repositório:
-```bash
-git clone https://github.com/arelunainstituto/OmniLuner.git
-cd OmniLuner
-```
+### Curto Prazo (3 meses)
+- ✅ Reorganização da estrutura de pastas
+- ✅ Criação do monorepo unificado
+- 🔄 Finalização do ERP core
+- 🔄 Integração do Sistema de Inventário
 
-2. Instale as dependências:
-```bash
-npm install
-```
+### Médio Prazo (6 meses)
+- 📋 Modernização da Plataforma de Empréstimos
+- 📋 Implementação completa do módulo Clínico
+- 📋 Integrações com Microsoft Graph e Zoho CRM
 
-3. Execute o servidor de desenvolvimento:
-```bash
-npm start
-```
+### Longo Prazo (12 meses)
+- 📋 Expansão para outras empresas do grupo
+- 📋 Implementação de BI e analytics avançados
+- 📋 Certificações de segurança e compliance
 
-4. Acesse no navegador:
-```
-http://localhost:8080
-```
+## 🔧 Stack Tecnológico Padronizado
 
-## 🎨 Interface
+- **Frontend:** Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
+- **Backend:** Next.js API Routes + Prisma + Supabase
+- **Database:** PostgreSQL (Supabase/Vercel Postgres)
+- **Auth:** NextAuth.js + Azure AD
+- **Deploy:** Vercel
+- **Monorepo:** Turbo + npm workspaces
 
-- **Design**: Moderno e limpo com cards arredondados
-- **Cores**: Paleta médica/dental profissional
-- **Responsivo**: Adaptável a todos os dispositivos
-- **UX**: Interface intuitiva e acessível
+## 📚 Documentação
 
-## 📊 Estrutura do Projeto
-
-```
-ProthesisLab/
-├── index.html              # Página principal
-├── script.js               # Lógica da aplicação
-├── styles.css              # Estilos principais
-├── intercompany-*.html/js/css # Módulos intercompany
-├── package.json            # Dependências
-└── README.md              # Documentação
-```
-
-## 🔧 Configuração
-
-O sistema é configurável através do módulo de Configurações, permitindo:
-- Personalização de dados da empresa
-- Gestão de utilizadores
-- Configurações fiscais
-- Preferências do sistema
-
-## 📈 Roadmap
-
-### Próximas Funcionalidades
-- [ ] Integração com sistemas externos
-- [ ] API REST completa
-- [ ] Aplicação mobile
-- [ ] Relatórios avançados
-- [ ] Backup automático
-- [ ] Multi-idioma completo
+- [Arquitetura do Sistema](./DOCUMENTACAO/arquitetura/)
+- [Guias de Desenvolvimento](./DOCUMENTACAO/manuais/)
+- [Processos e Workflows](./DOCUMENTACAO/processos/)
 
 ## 🤝 Contribuição
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+1. Clone o repositório
+2. Instale as dependências: `npm install`
+3. Crie uma branch: `git checkout -b feature/nova-funcionalidade`
+4. Faça suas alterações e commit: `git commit -m "feat: nova funcionalidade"`
+5. Push para a branch: `git push origin feature/nova-funcionalidade`
+6. Abra um Pull Request
 
 ## 📄 Licença
+
+MIT © Grupo AreLuna
+
+---
+
+**Desenvolvido com ❤️ pela equipe do Grupo AreLuna**
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
@@ -120,3 +253,4 @@ Para suporte técnico ou dúvidas:
 ---
 
 **OmniLuner** - Agente de Engenharia do Grupo AreLuna
+>>>>>>> 8e2bcfa9403011ba7c36490532ab356591b99acf

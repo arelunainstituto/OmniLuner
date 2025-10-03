@@ -1,0 +1,29 @@
+# Produção – Descrição
+
+## Objetivo
+Executar tecnicamente projetos fotográficos com excelência, garantindo qualidade técnica, cumprimento de prazos e otimização de recursos durante todo o processo produtivo.
+
+## Principais processos
+- Preparação técnica de equipamentos e estúdio
+- Execução de sessões fotográficas (iluminação, câmera, som)
+- Gestão de cronogramas de produção
+- Pós-produção técnica e edição de imagens
+- Controle de qualidade técnica das entregas
+- Gestão de arquivo digital e backup
+- Coordenação logística de equipamentos e locações
+
+## Integrações
+- **Criativo**: Execução dos conceitos desenvolvidos
+- **Clientes**: Acompanhamento técnico durante sessões
+- **Fornecedores**: Aluguel de equipamentos e locações
+- **Logística**: Transporte de equipamentos
+- **Arquivo**: Gestão e armazenamento de conteúdo
+
+## Métricas/SLAs
+- Setup de equipamentos: Máximo 45 minutos
+- Qualidade técnica: 100% das imagens aprovadas
+- Backup de arquivos: Realizado em 24h
+- Entrega de material bruto: 48h pós-sessão
+- Entrega final editada: 5-7 dias úteis
+- Utilização de equipamentos: 85-95%
+- Zero perda de arquivos: 100% de segurança

@@ -1,0 +1,34 @@
+{
+  "name": "@areluna/monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AreLuna Group ERP - Monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "prisma"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "db:generate": "cd prisma && npm run generate",
+    "db:push": "cd prisma && npm run push",
+    "db:migrate": "cd prisma && npm run migrate",
+    "db:seed": "cd prisma && npm run seed",
+    "postinstall": "npm run db:generate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "turbo": "^1.11.2",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "npm@10.2.4",
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  }
+}

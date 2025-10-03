@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventário Patrimonial - Grupo AreLuna</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .areluna-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #f59e0b 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .status-online { color: #10b981; }
+        .status-development { color: #f59e0b; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-amber-600 min-h-screen">
+    <!-- Header -->
+    <header class="glass-effect text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-boxes text-2xl text-amber-400"></i>
+                <h1 class="text-2xl font-bold">Sistema de Inventário Patrimonial</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="status-development">
+                    <i class="fas fa-circle text-xs"></i> Em Desenvolvimento
+                </span>
+                <button onclick="window.location.href='../index.html'" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-home mr-2"></i>Portal
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        <!-- Status Card -->
+        <div class="glass-effect rounded-2xl p-6 mb-6 text-white">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">Status do Sistema</h2>
+                <i class="fas fa-info-circle text-amber-400 text-xl"></i>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-400">85%</div>
+                    <div class="text-sm opacity-80">Funcionalidades Implementadas</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-amber-400">Next.js</div>
+                    <div class="text-sm opacity-80">Framework Principal</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-400">QR Code</div>
+                    <div class="text-sm opacity-80">Gerador Integrado</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <!-- QR Code Generator -->
+            <div class="glass-effect rounded-2xl p-6 text-white hover:scale-105 transition-transform cursor-pointer" onclick="openFeature('qr-generator')">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-qrcode text-2xl text-amber-400 mr-3"></i>
+                    <h3 class="text-lg font-semibold">Gerador QR Code</h3>
+                </div>
+                <p class="text-sm opacity-80 mb-4">Gere códigos QR para identificação de patrimônio</p>
+                <div class="flex justify-between items-center">
+                    <span class="status-online text-sm">
+                        <i class="fas fa-circle text-xs"></i> Funcional
+                    </span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Asset Management -->
+            <div class="glass-effect rounded-2xl p-6 text-white hover:scale-105 transition-transform cursor-pointer" onclick="openFeature('asset-management')">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-clipboard-list text-2xl text-blue-400 mr-3"></i>
+                    <h3 class="text-lg font-semibold">Gestão de Ativos</h3>
+                </div>
+                <p class="text-sm opacity-80 mb-4">Cadastro e controle de patrimônio</p>
+                <div class="flex justify-between items-center">
+                    <span class="status-online text-sm">
+                        <i class="fas fa-circle text-xs"></i> Funcional
+                    </span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Scanner -->
+            <div class="glass-effect rounded-2xl p-6 text-white hover:scale-105 transition-transform cursor-pointer" onclick="openFeature('scanner')">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-camera text-2xl text-green-400 mr-3"></i>
+                    <h3 class="text-lg font-semibold">Scanner QR</h3>
+                </div>
+                <p class="text-sm opacity-80 mb-4">Leitura de códigos QR via câmera</p>
+                <div class="flex justify-between items-center">
+                    <span class="status-online text-sm">
+                        <i class="fas fa-circle text-xs"></i> Funcional
+                    </span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div class="glass-effect rounded-2xl p-6 text-white hover:scale-105 transition-transform cursor-pointer" onclick="openFeature('reports')">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-chart-bar text-2xl text-purple-400 mr-3"></i>
+                    <h3 class="text-lg font-semibold">Relatórios</h3>
+                </div>
+                <p class="text-sm opacity-80 mb-4">Relatórios de inventário e movimentação</p>
+                <div class="flex justify-between items-center">
+                    <span class="status-development text-sm">
+                        <i class="fas fa-circle text-xs"></i> Em Desenvolvimento
+                    </span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Integration -->
+            <div class="glass-effect rounded-2xl p-6 text-white hover:scale-105 transition-transform cursor-pointer" onclick="openFeature('integration')">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-link text-2xl text-indigo-400 mr-3"></i>
+                    <h3 class="text-lg font-semibold">Integração ERP</h3>
+                </div>
+                <p class="text-sm opacity-80 mb-4">Conexão com ERP Grupo AreLuna</p>
+                <div class="flex justify-between items-center">
+                    <span class="status-development text-sm">
+                        <i class="fas fa-circle text-xs"></i> Planejado
+                    </span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Mobile App -->
+            <div class="glass-effect rounded-2xl p-6 text-white hover:scale-105 transition-transform cursor-pointer" onclick="openFeature('mobile')">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-mobile-alt text-2xl text-pink-400 mr-3"></i>
+                    <h3 class="text-lg font-semibold">App Mobile</h3>
+                </div>
+                <p class="text-sm opacity-80 mb-4">Aplicativo para inventário móvel</p>
+                <div class="flex justify-between items-center">
+                    <span class="status-development text-sm">
+                        <i class="fas fa-circle text-xs"></i> Planejado
+                    </span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass-effect rounded-2xl p-6 text-white">
+            <h2 class="text-xl font-semibold mb-4">Ações Rápidas</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button onclick="window.open('qr-generator.html', '_blank')" class="bg-green-600 hover:bg-green-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-play text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Abrir Sistema</div>
+                </button>
+                <button onclick="viewDocumentation()" class="bg-blue-600 hover:bg-blue-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-book text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Documentação</div>
+                </button>
+                <button onclick="viewTests()" class="bg-purple-600 hover:bg-purple-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-vial text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Testes</div>
+                </button>
+                <button onclick="viewDeployment()" class="bg-amber-600 hover:bg-amber-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-rocket text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Deploy</div>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect text-white text-center p-4 mt-8">
+        <p>&copy; 2024 Grupo AreLuna - Sistema de Inventário Patrimonial</p>
+        <p class="text-sm opacity-80">Desenvolvido com Next.js, Supabase e Tailwind CSS</p>
+    </footer>
+
+    <script>
+        function openFeature(feature) {
+            console.log('Abrindo funcionalidade:', feature);
+            
+            try {
+                switch(feature) {
+                    case 'qr-generator':
+                        navigateTo('qr-generator.html');
+                        break;
+                    case 'asset-management':
+                        navigateTo('http://localhost:3000');
+                        break;
+                    case 'scanner':
+                        navigateTo('http://localhost:3000/scanner');
+                        break;
+                    case 'reports':
+                        navigateTo('analytics.html');
+                        break;
+                    case 'integration':
+                        navigateTo('erp.html');
+                        break;
+                    case 'mobile':
+                        navigateTo('https://github.com/grupo-areluna/inventory-mobile');
+                        break;
+                    default:
+                        console.log('Feature não reconhecida:', feature);
+                }
+            } catch (error) {
+                console.error('Erro ao abrir funcionalidade:', error);
+                // Fallback: tentar navegação direta
+                if (feature === 'qr-generator') {
+                    window.location.href = 'qr-generator.html';
+                }
+            }
+        }
+
+        function navigateTo(url) {
+            console.log('Navegando para:', url);
+            
+            // Tentar window.open primeiro
+            const newWindow = window.open(url, '_blank');
+            
+            // Se window.open foi bloqueado, usar location.href
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                console.log('Popup bloqueado, usando navegação direta');
+                if (url.startsWith('http')) {
+                    // Para URLs externas, mostrar aviso
+                    if (confirm(`Deseja abrir: ${url}?`)) {
+                        window.location.href = url;
+                    }
+                } else {
+                    // Para páginas locais, navegar diretamente
+                    window.location.href = url;
+                }
+            }
+        }
+
+        function launchInventoryApp() {
+            console.log('Iniciando aplicação de inventário');
+            navigateTo('http://localhost:3000');
+        }
+
+        function viewDocumentation() {
+            console.log('Abrindo documentação');
+            navigateTo('../README.md');
+        }
+
+        function viewTests() {
+            console.log('Abrindo testes');
+            navigateTo('http://localhost:3000/tests');
+        }
+
+        function viewDeployment() {
+            console.log('Abrindo informações de deploy');
+            navigateTo('https://vercel.com/docs/deployments');
+        }
+
+        // Adicionar logs para debug
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página de inventário carregada');
+            
+            // Verificar se há bloqueadores de popup
+            const testPopup = window.open('', '_blank', 'width=1,height=1');
+            if (testPopup) {
+                testPopup.close();
+                console.log('Popups permitidos');
+            } else {
+                console.log('Popups bloqueados - usando navegação alternativa');
+            }
+        });
+    </script>
+</body>
+</html>
