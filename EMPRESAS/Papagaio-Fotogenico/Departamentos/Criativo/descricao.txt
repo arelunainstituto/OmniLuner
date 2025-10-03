@@ -1,0 +1,28 @@
+# Criativo – Descrição
+
+## Objetivo
+Desenvolver conceitos visuais inovadores, criar conteúdo fotográfico de alta qualidade e liderar projetos criativos que atendam às necessidades dos clientes e fortaleçam a marca.
+
+## Principais processos
+- Conceituação e desenvolvimento de projetos fotográficos
+- Criação de mood boards e direção artística
+- Planejamento de sessões fotográficas (estúdio e externa)
+- Desenvolvimento de identidade visual para clientes
+- Coordenação com equipe de produção
+- Pós-produção criativa e retoque avançado
+- Apresentação de propostas criativas a clientes
+
+## Integrações
+- **Produção**: Execução técnica dos projetos criativos
+- **Clientes**: Briefings e aprovações de conceitos
+- **Fornecedores**: Cenários, adereços e equipamentos especiais
+- **Marketing**: Desenvolvimento de campanhas visuais
+
+## Métricas/SLAs
+- Tempo de desenvolvimento de conceito: 2-3 dias úteis
+- Taxa de aprovação de propostas: Mínimo 80%
+- Satisfação criativa do cliente: Mínimo 4.7/5.0
+- Projetos entregues no prazo: Mínimo 95%
+- Inovação por projeto: Pelo menos 1 elemento diferenciador
+- Revisões por projeto: Máximo 3 rounds
+- Portfolio atualizado: Mensalmente

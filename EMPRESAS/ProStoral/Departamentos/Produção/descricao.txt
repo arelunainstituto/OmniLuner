@@ -1,0 +1,29 @@
+# Produção – Descrição
+
+## Objetivo
+Fabricar dispositivos médicos e próteses de alta qualidade, seguindo rigorosos padrões de qualidade e regulamentações médicas, garantindo segurança e eficácia dos produtos.
+
+## Principais processos
+- Fabricação de próteses dentárias e dispositivos médicos
+- Controle de qualidade e testes de conformidade
+- Gestão de matérias-primas e componentes
+- Planeamento de produção e cronogramas
+- Calibração e manutenção de equipamentos
+- Documentação técnica e rastreabilidade
+- Embalagem e preparação para distribuição
+
+## Integrações
+- **Qualidade & Compliance**: Validação e certificações
+- **Pesquisa & Desenvolvimento**: Novos produtos e melhorias
+- **Arrendamento de Imóveis**: Gestão de instalações
+- **Fornecedores**: Matérias-primas e componentes
+- **Laboratórios**: Testes e certificações
+
+## Métricas/SLAs
+- Taxa de conformidade: 99.9%
+- Tempo de produção por unidade: Conforme especificação
+- Eficiência produtiva: Mínimo 85%
+- Defeitos por milhão: Máximo 100 PPM
+- Rastreabilidade: 100% dos produtos
+- Cumprimento de prazos: Mínimo 98%
+- Certificações regulamentares: 100% em dia

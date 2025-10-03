@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Integrado - Grupo AreLuna</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .areluna-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #f59e0b 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .status-planned { color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-amber-600 min-h-screen">
+    <header class="glass-effect text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-users text-2xl text-amber-400"></i>
+                <h1 class="text-2xl font-bold">CRM Integrado</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="status-planned">
+                    <i class="fas fa-circle text-xs"></i> Planejado
+                </span>
+                <button onclick="window.location.href='../index.html'" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-home mr-2"></i>Portal
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <div class="glass-effect rounded-2xl p-8 text-white text-center">
+            <i class="fas fa-users text-6xl text-amber-400 mb-4"></i>
+            <h2 class="text-3xl font-bold mb-4">CRM Integrado</h2>
+            <p class="text-lg mb-6">Sistema de gestão de relacionamento com clientes para todas as empresas do Grupo AreLuna</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-blue-600 bg-opacity-50 p-4 rounded-xl">
+                    <i class="fas fa-handshake text-2xl mb-2"></i>
+                    <h3 class="font-semibold">Gestão de Leads</h3>
+                    <p class="text-sm opacity-80">Captura e qualificação automática</p>
+                </div>
+                <div class="bg-green-600 bg-opacity-50 p-4 rounded-xl">
+                    <i class="fas fa-chart-line text-2xl mb-2"></i>
+                    <h3 class="font-semibold">Pipeline de Vendas</h3>
+                    <p class="text-sm opacity-80">Acompanhamento visual do funil</p>
+                </div>
+                <div class="bg-purple-600 bg-opacity-50 p-4 rounded-xl">
+                    <i class="fas fa-robot text-2xl mb-2"></i>
+                    <h3 class="font-semibold">Automação</h3>
+                    <p class="text-sm opacity-80">Workflows inteligentes</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-600 bg-opacity-20 p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-semibold mb-3">Integrações Planejadas</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>• Zoho CRM</div>
+                    <div>• WhatsApp Business (Evolution API)</div>
+                    <div>• Microsoft Graph (Emails)</div>
+                    <div>• ERP Grupo AreLuna</div>
+                </div>
+            </div>
+
+            <button onclick="showRoadmap()" class="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+                <i class="fas fa-road mr-2"></i>Ver Roadmap
+            </button>
+        </div>
+    </main>
+
+    <script>
+        function showRoadmap() {
+            alert('Roadmap CRM Integrado:\n\nFase 1 (Q2 2024):\n• Integração Zoho CRM\n• Dashboard básico\n\nFase 2 (Q3 2024):\n• WhatsApp Business\n• Automações\n\nFase 3 (Q4 2024):\n• IA para qualificação\n• Relatórios avançados');
+        }
+    </script>
+</body>
+</html>

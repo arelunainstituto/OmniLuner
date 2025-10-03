@@ -1,0 +1,44 @@
+{
+  "name": "@areluna/auth",
+  "version": "0.1.0",
+  "description": "Authentication and authorization utilities for AreLuna Group applications",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "areluna",
+    "auth",
+    "authentication",
+    "authorization",
+    "rbac",
+    "typescript"
+  ],
+  "author": "AreLuna Group",
+  "license": "MIT",
+  "dependencies": {
+    "next-auth": "^4.24.5",
+    "zod": "^3.22.4",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "nanoid": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.10.5",
+    "eslint": "^8.56.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "next": ">=14.0.0",
+    "react": ">=18.0.0",
+    "typescript": ">=5.0.0"
+  }
+}

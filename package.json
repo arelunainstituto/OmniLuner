@@ -1,0 +1,44 @@
+{
+  "name": "@areluna/monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo unificado do Grupo AreLuna - ERP, Sistema de Inventário e Plataforma de Empréstimos",
+  "private": true,
+  "workspaces": [
+    "PROJETOS-TECNOLOGICOS/ERP-Grupo-AreLuna/erp-grupo-areluna/apps/*",
+    "PROJETOS-TECNOLOGICOS/ERP-Grupo-AreLuna/erp-grupo-areluna/packages/*",
+    "PROJETOS-TECNOLOGICOS/Sistema-Inventario/Inventario Patrimonio",
+    "PROJETOS-TECNOLOGICOS/Plataforma-Emprestimos/Lending Platform"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "type-check": "turbo run type-check",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=!@areluna/docs && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@turbo/gen": "^1.10.12",
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.12",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "packageManager": "npm@10.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grupo-areluna/monorepo.git"
+  },
+  "author": "Grupo AreLuna",
+  "license": "MIT"
+}

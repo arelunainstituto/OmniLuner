@@ -1,0 +1,29 @@
+# Operações de Transporte – Descrição
+
+## Objetivo
+Gerir operações de transporte de mercadorias e passageiros com eficiência, segurança e pontualidade, otimizando rotas e recursos para maximizar a satisfação dos clientes.
+
+## Principais processos
+- Planeamento e otimização de rotas de transporte
+- Gestão de frota e alocação de veículos
+- Coordenação de horários e cronogramas
+- Monitorização em tempo real das operações
+- Gestão de condutores e equipas operacionais
+- Controle de combustível e custos operacionais
+- Atendimento ao cliente e resolução de incidentes
+
+## Integrações
+- **Logística & Armazém**: Coordenação de cargas e entregas
+- **Manutenção de Veículos**: Programação de manutenções
+- **Financeiro**: Controle de custos e faturação
+- **Clientes**: Atualizações de status e comunicação
+- **Sistemas GPS**: Rastreamento e monitorização
+
+## Métricas/SLAs
+- Pontualidade de entregas: Mínimo 95%
+- Utilização da frota: 80-90%
+- Consumo de combustível: Otimização de 15% anual
+- Satisfação do cliente: Mínimo 4.5/5.0
+- Incidentes de segurança: Zero tolerância
+- Tempo médio de resposta: Máximo 30 minutos
+- Disponibilidade operacional: 98%

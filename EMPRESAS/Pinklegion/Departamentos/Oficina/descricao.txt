@@ -1,0 +1,29 @@
+# Oficina – Descrição
+
+## Objetivo
+Prestar serviços de manutenção, reparação e diagnóstico automóvel com excelência técnica, garantindo segurança, qualidade e satisfação dos clientes.
+
+## Principais processos
+- Diagnóstico técnico e orçamentação de reparações
+- Manutenção preventiva e corretiva de veículos
+- Reparação de sistemas mecânicos, elétricos e eletrônicos
+- Preparação de veículos para venda (departamento comercial)
+- Inspeções técnicas e certificações
+- Gestão de peças e componentes
+- Controle de qualidade dos serviços prestados
+
+## Integrações
+- **Comercial**: Preparação de veículos para venda
+- **Logística**: Gestão de peças e componentes
+- **Financeiro**: Faturação de serviços e gestão de custos
+- **Fornecedores**: Encomenda de peças e materiais
+- **Sistemas externos**: Plataformas de diagnóstico, fabricantes
+
+## Métricas/SLAs
+- Tempo médio de diagnóstico: Máximo 2 horas
+- Taxa de conclusão no prazo: Mínimo 95%
+- Satisfação do cliente: Mínimo 4.6/5.0
+- Margem de lucro por serviço: 40-60%
+- Retrabalho: Máximo 2%
+- Utilização da oficina: 80-90%
+- Tempo médio de reparação: Conforme complexidade (1-5 dias)

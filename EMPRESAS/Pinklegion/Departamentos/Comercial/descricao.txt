@@ -1,0 +1,27 @@
+# Comercial – Descrição
+
+## Objetivo
+Gerir vendas de veículos novos e usados, desenvolver relacionamento com clientes, e maximizar receitas através de estratégias comerciais eficazes no setor automóvel.
+
+## Principais processos
+- Atendimento e consultoria a clientes interessados em compra/venda
+- Avaliação e compra de veículos usados para revenda
+- Negociação de preços e condições de pagamento
+- Gestão de stock de veículos (novos e usados)
+- Coordenação com oficina para preparação de veículos
+- Follow-up pós-venda e fidelização de clientes
+- Prospeção de novos clientes e parcerias
+
+## Integrações
+- **Oficina**: Preparação e reparação de veículos para venda
+- **Financeiro**: Processamento de pagamentos e financiamentos
+- **Logística**: Transporte e entrega de veículos
+- **Sistemas externos**: Plataformas de anúncios online, seguradoras
+
+## Métricas/SLAs
+- Volume de vendas mensal: Meta 15-20 veículos
+- Margem de lucro por venda: Mínimo 8-12%
+- Tempo médio de venda (stock): Máximo 45 dias
+- Taxa de conversão de visitas: Mínimo 25%
+- Satisfação do cliente: Mínimo 4.5/5.0
+- Tempo de resposta a leads: Máximo 2 horas

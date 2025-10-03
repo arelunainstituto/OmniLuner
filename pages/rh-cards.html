@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cards RH - Grupo AreLuna</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .status-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+            transition: width 0.5s ease;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .ai-suggestion {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(240, 147, 251, 0.5); }
+            to { box-shadow: 0 0 20px rgba(240, 147, 251, 0.8); }
+        }
+        
+        .modal {
+            backdrop-filter: blur(10px);
+        }
+        
+        .filter-active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .search-highlight {
+            background-color: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg border-b-4 border-blue-500">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.history.back()" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                    </button>
+                    <h1 class="text-3xl font-bold text-gray-800">
+                        <i class="fas fa-users text-blue-600 mr-3"></i>
+                        Sistema de Cards RH
+                    </h1>
+                </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Painel Administrativo</h2>
+                        <button onclick="closeAdminPanel()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Gestão de Colaboradores -->
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <h3 class="font-bold text-blue-800 mb-4">
+                                <i class="fas fa-users mr-2"></i>Colaboradores
+                            </h3>
+                            <div class="space-y-3">
+                                <button onclick="showAddEmployeeForm()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                                    <i class="fas fa-plus mr-2"></i>Adicionar Colaborador
+                                </button>
+                                <button onclick="showBulkImport()" class="w-full bg-blue-100 text-blue-700 py-2 px-4 rounded-lg hover:bg-blue-200 transition-colors">
+                                    <i class="fas fa-upload mr-2"></i>Importar em Lote
+                                </button>
+                                <button onclick="showEmployeeArchive()" class="w-full bg-blue-100 text-blue-700 py-2 px-4 rounded-lg hover:bg-blue-200 transition-colors">
+                                    <i class="fas fa-archive mr-2"></i>Arquivo de Colaboradores
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Gestão de Departamentos -->
+                        <div class="bg-green-50 rounded-lg p-6">
+                            <h3 class="font-bold text-green-800 mb-4">
+                                <i class="fas fa-building mr-2"></i>Departamentos
+                            </h3>
+                            <div class="space-y-3">
+                                <button onclick="showDepartmentManager()" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                                    <i class="fas fa-cog mr-2"></i>Gerenciar Departamentos
+                                </button>
+                                <button onclick="showSkillsManager()" class="w-full bg-green-100 text-green-700 py-2 px-4 rounded-lg hover:bg-green-200 transition-colors">
+                                    <i class="fas fa-star mr-2"></i>Gerenciar Skills
+                                </button>
+                                <button onclick="showRolesManager()" class="w-full bg-green-100 text-green-700 py-2 px-4 rounded-lg hover:bg-green-200 transition-colors">
+                                    <i class="fas fa-user-tag mr-2"></i>Gerenciar Cargos
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Sistema e Logs -->
+                        <div class="bg-purple-50 rounded-lg p-6">
+                            <h3 class="font-bold text-purple-800 mb-4">
+                                <i class="fas fa-server mr-2"></i>Sistema
+                            </h3>
+                            <div class="space-y-3">
+                                <button onclick="showSystemLogs()" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                                    <i class="fas fa-list mr-2"></i>Logs do Sistema
+                                </button>
+                                <button onclick="showIntegrations()" class="w-full bg-purple-100 text-purple-700 py-2 px-4 rounded-lg hover:bg-purple-200 transition-colors">
+                                    <i class="fas fa-plug mr-2"></i>Integrações
+                                </button>
+                                <button onclick="showSystemSettings()" class="w-full bg-purple-100 text-purple-700 py-2 px-4 rounded-lg hover:bg-purple-200 transition-colors">
+                                    <i class="fas fa-sliders-h mr-2"></i>Configurações
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="mt-6 grid md:grid-cols-4 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-gray-800">${employees.length}</div>
+                            <div class="text-sm text-gray-600">Total Colaboradores</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-green-600">${employees.filter(emp => emp.status === 'ativo').length}</div>
+                            <div class="text-sm text-gray-600">Ativos</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-orange-600">${employees.filter(emp => emp.status === 'ferias').length}</div>
+                            <div class="text-sm text-gray-600">Em Férias</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-purple-600">${employees.filter(emp => emp.status === 'onboarding').length}</div>
+                            <div class="text-sm text-gray-600">Onboarding</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Report Modal -->
+    <div id="reportModal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800">Gerar Relatório Personalizado</h2>
+                        <button onclick="closeReportModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="reportModalContent">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Modal -->
+    <div id="actionModal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 id="actionModalTitle" class="text-xl font-bold text-gray-800"></h2>
+                        <button onclick="closeActionModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="actionModalContent">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="fixed top-4 right-4 bg-white border-l-4 border-blue-500 rounded-lg shadow-lg p-4 hidden z-50 max-w-sm">
+        <div class="flex items-center">
+            <div id="notificationIcon" class="mr-3">
+                <i class="fas fa-info-circle text-blue-500"></i>
+            </div>
+            <div>
+                <p id="notificationMessage" class="text-sm font-medium text-gray-800"></p>
+            </div>
+            <button onclick="hideNotification()" class="ml-4 text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-100 px-4 py-2 rounded-full">
+                        <span class="text-blue-800 font-semibold" id="totalEmployees">0 Colaboradores</span>
+                    </div>
+                    <button onclick="showAddEmployeeModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters and Search -->
+    <div class="container mx-auto px-6 py-6">
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex flex-wrap items-center gap-4">
+                <!-- Search -->
+                <div class="flex-1 min-w-64">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar por nome, cargo ou skills..." 
+                               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+                
+                <!-- Department Filter -->
+                <select id="departmentFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <option value="">Todos os Departamentos</option>
+                    <option value="TI">Tecnologia da Informação</option>
+                    <option value="RH">Recursos Humanos</option>
+                    <option value="Financeiro">Financeiro</option>
+                    <option value="Comercial">Comercial</option>
+                    <option value="Operações">Operações</option>
+                    <option value="Marketing">Marketing</option>
+                </select>
+                
+                <!-- Status Filter -->
+                <div class="flex gap-2">
+                    <button onclick="filterByStatus('all')" class="filter-btn filter-active px-4 py-2 rounded-lg transition-all" data-status="all">
+                        Todos
+                    </button>
+                    <button onclick="filterByStatus('ativo')" class="filter-btn px-4 py-2 bg-gray-200 rounded-lg transition-all" data-status="ativo">
+                        Ativos
+                    </button>
+                    <button onclick="filterByStatus('ferias')" class="filter-btn px-4 py-2 bg-gray-200 rounded-lg transition-all" data-status="ferias">
+                        Férias
+                    </button>
+                    <button onclick="filterByStatus('onboarding')" class="filter-btn px-4 py-2 bg-gray-200 rounded-lg transition-all" data-status="onboarding">
+                        Onboarding
+                    </button>
+                </div>
+                
+                <!-- Export Options -->
+                <div class="flex gap-2">
+                    <button onclick="exportToExcel()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all">
+                        <i class="fas fa-file-excel mr-2"></i>Excel
+                    </button>
+                    <button onclick="exportToPDF()" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+                        <i class="fas fa-file-pdf mr-2"></i>PDF
+                    </button>
+                    <button onclick="generateReport()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                        <i class="fas fa-chart-bar mr-2"></i>Relatório
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Results Info -->
+            <div id="searchResults" class="mt-4 hidden"></div>
+            <div id="searchInfo" class="mt-4 text-sm text-gray-600 hidden">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span id="searchInfoText"></span>
+            </div>
+        </div>
+
+        <!-- AI Insights Panel -->
+        <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow-lg p-6 mb-6 text-white">
+            <h3 class="text-xl font-bold mb-4">
+                <i class="fas fa-brain mr-2"></i>Insights de IA
+            </h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <div class="text-2xl font-bold">87%</div>
+                    <div class="text-sm">Taxa de Engajamento</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <div class="text-2xl font-bold">12</div>
+                    <div class="text-sm">Sugestões de Treinamento</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <div class="text-2xl font-bold">3</div>
+                    <div class="text-sm">Alertas de Compliance</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Cards Grid -->
+        <div id="employeeGrid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+        
+        <!-- Admin Panel Button -->
+        <div class="fixed bottom-6 right-6">
+            <button onclick="showAdminPanel()" class="bg-purple-500 text-white p-4 rounded-full shadow-lg hover:bg-purple-600 transition-all">
+                <i class="fas fa-cog text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Notifications Panel -->
+        <div id="notificationsPanel" class="fixed top-20 right-6 w-80 bg-white rounded-lg shadow-lg border hidden z-40">
+            <div class="p-4 border-b">
+                <h3 class="font-bold text-gray-800">Notificações</h3>
+                <button onclick="closeNotifications()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="notificationsList" class="max-h-96 overflow-y-auto">
+                <!-- Notifications will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Employee Detail Modal -->
+    <div id="employeeModal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Detalhes do Colaborador</h2>
+                        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="modalContent">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample employee data with AI-enhanced features
+        const employees = [
+            {
+                id: 1,
+                name: "Ana Silva",
+                position: "Desenvolvedora Senior",
+                department: "TI",
+                photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23e5e7eb'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%236b7280' font-family='Arial' font-size='16'%3EAS%3C/text%3E%3C/svg%3E",
+                status: "ativo",
+                email: "ana.silva@areluna.com",
+                phone: "+55 11 99999-0001",
+                address: "Rua das Flores, 123 - São Paulo, SP",
+                birthDate: "1990-05-15",
+                hireDate: "2020-03-10",
+                salary: "R$ 12.000,00",
+                manager: "Carlos Oliveira",
+                onboardingProgress: 100,
+                lastEvaluation: { date: "2024-09", rating: 4.5 },
+                skills: ["JavaScript", "React", "Node.js", "Liderança"],
+                certifications: ["AWS Solutions Architect", "Scrum Master", "React Advanced"],
+                recentActions: [
+                    "Concluiu projeto de migração do sistema",
+                    "Recebeu feedback positivo da equipe",
+                    "Participou de treinamento de AWS"
+                ],
+                actionHistory: [
+                    { date: "2024-10-15", action: "Concluiu projeto de migração do sistema", type: "projeto" },
+                    { date: "2024-10-10", action: "Recebeu feedback positivo da equipe", type: "feedback" },
+                    { date: "2024-10-05", action: "Participou de treinamento de AWS", type: "treinamento" },
+                    { date: "2024-09-28", action: "Liderou workshop de React", type: "liderança" },
+                    { date: "2024-09-20", action: "Avaliação de desempenho - 4.5/5", type: "avaliacao" }
+                ],
+                aiSuggestions: [
+                    "Candidata ideal para liderar projeto de IA",
+                    "Recomendada para certificação AWS Solutions Architect"
+                ],
+                performance: 92,
+                engagement: 88,
+                contractExpiry: "2025-12-31",
+                documents: [
+                    { name: "Contrato de Trabalho", type: "contrato", date: "2020-03-10" },
+                    { name: "Última Avaliação", type: "avaliacao", date: "2024-09-15" },
+                    { name: "Certificado AWS", type: "certificado", date: "2024-08-20" },
+                    { name: "Plano de Carreira", type: "carreira", date: "2024-01-15" }
+                ],
+                emergencyContact: {
+                    name: "João Silva",
+                    relationship: "Cônjuge",
+                    phone: "+55 11 98888-7777"
+                },
+                benefits: ["Plano de Saúde", "Vale Refeição", "Vale Transporte", "Gympass"],
+                vacationDays: { total: 30, used: 15, remaining: 15 }
+            },
+            {
+                id: 2,
+                name: "Carlos Santos",
+                position: "Analista de RH",
+                department: "RH",
+                photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ddd6fe'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%237c3aed' font-family='Arial' font-size='16'%3ECS%3C/text%3E%3C/svg%3E",
+                status: "ferias",
+                email: "carlos.santos@areluna.com",
+                phone: "+55 11 99999-0002",
+                onboardingProgress: 100,
+                lastEvaluation: { date: "2024-08", rating: 4.2 },
+                skills: ["Recrutamento", "Gestão de Pessoas", "Excel Avançado"],
+                recentActions: [
+                    "Finalizou processo seletivo para TI",
+                    "Implementou novo sistema de avaliação",
+                    "Organizou treinamento de compliance"
+                ],
+                aiSuggestions: [
+                    "Sugestão de curso em People Analytics",
+                    "Potencial para especialização em Diversidade & Inclusão"
+                ],
+                performance: 85,
+                engagement: 90,
+                contractExpiry: "2025-06-30",
+                documents: ["Contrato", "Avaliações", "Plano de Carreira"]
+            },
+            {
+                id: 3,
+                name: "Maria Oliveira",
+                position: "Estagiária de Marketing",
+                department: "Marketing",
+                photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23fce7f3'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%23ec4899' font-family='Arial' font-size='16'%3EMO%3C/text%3E%3C/svg%3E",
+                status: "onboarding",
+                email: "maria.oliveira@areluna.com",
+                phone: "+55 11 99999-0003",
+                onboardingProgress: 65,
+                lastEvaluation: { date: "2024-10", rating: 3.8 },
+                skills: ["Design Gráfico", "Redes Sociais", "Photoshop"],
+                recentActions: [
+                    "Iniciou programa de onboarding",
+                    "Completou treinamento de segurança",
+                    "Participou de workshop de branding"
+                ],
+                aiSuggestions: [
+                    "Recomendado curso de Marketing Digital",
+                    "Mentoria com especialista em Growth Marketing"
+                ],
+                performance: 78,
+                engagement: 85,
+                contractExpiry: "2025-02-28",
+                documents: ["Contrato de Estágio", "Plano de Desenvolvimento"]
+            },
+            {
+                id: 4,
+                name: "João Pereira",
+                position: "Gerente Financeiro",
+                department: "Financeiro",
+                photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23dcfce7'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%2316a34a' font-family='Arial' font-size='16'%3EJP%3C/text%3E%3C/svg%3E",
+                status: "ativo",
+                email: "joao.pereira@areluna.com",
+                phone: "+55 11 99999-0004",
+                onboardingProgress: 100,
+                lastEvaluation: { date: "2024-09", rating: 4.7 },
+                skills: ["Controladoria", "Excel Expert", "Power BI", "Gestão de Equipe"],
+                recentActions: [
+                    "Apresentou relatório trimestral",
+                    "Implementou novo dashboard financeiro",
+                    "Liderou auditoria interna"
+                ],
+                aiSuggestions: [
+                    "Candidato para certificação CFA",
+                    "Potencial para expansão para CFO"
+                ],
+                performance: 95,
+                engagement: 92,
+                contractExpiry: "2026-01-15",
+                documents: ["Contrato", "Avaliações", "Metas 2024"]
+            }
+        ];
+
+        let filteredEmployees = [...employees];
+        let currentFilter = 'all';
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            renderEmployeeCards();
+            updateEmployeeCount();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.getElementById('departmentFilter').addEventListener('change', handleDepartmentFilter);
+        }
+
+        function renderEmployees(employeeList = employees) {
+            const grid = document.getElementById('employeeGrid');
+            grid.innerHTML = '';
+
+            employeeList.forEach(employee => {
+                const card = createEmployeeCard(employee);
+                grid.appendChild(card);
+            });
+        }
+
+        function renderEmployeeCards() {
+            renderEmployees(filteredEmployees);
+        }
+
+        function createEmployeeCard(employee) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-2xl shadow-lg card-hover cursor-pointer overflow-hidden';
+            card.onclick = () => showEmployeeDetails(employee);
+
+            const statusColor = getStatusColor(employee.status);
+            const statusText = getStatusText(employee.status);
+
+            card.innerHTML = `
+                <div class="relative">
+                    <div class="absolute top-3 right-3 z-10">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusColor}">
+                            ${statusText}
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="${employee.photo}" alt="${employee.name}" 
+                                 class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg">
+                            <div class="ml-4 flex-1">
+                                <h3 class="font-bold text-lg text-gray-800">${employee.name}</h3>
+                                <p class="text-gray-600 text-sm">${employee.position}</p>
+                                <p class="text-gray-500 text-xs">${employee.department}</p>
+                            </div>
+                        </div>
+
+                        ${employee.status === 'onboarding' ? `
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Progresso Onboarding</span>
+                                <span class="font-semibold">${employee.onboardingProgress}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="progress-bar h-2 rounded-full" style="width: ${employee.onboardingProgress}%"></div>
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-gray-600">Última Avaliação</span>
+                                <div class="flex items-center">
+                                    <span class="text-sm font-semibold mr-1">${employee.lastEvaluation.date}</span>
+                                    <div class="flex text-yellow-400">
+                                        ${generateStars(employee.lastEvaluation.rating)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-600 mb-2">Skills Principais:</p>
+                            <div class="flex flex-wrap gap-1">
+                                ${employee.skills.slice(0, 3).map(skill => 
+                                    `<span class="skill-tag text-white text-xs px-2 py-1 rounded-full">${skill}</span>`
+                                ).join('')}
+                                ${employee.skills.length > 3 ? `<span class="text-xs text-gray-500">+${employee.skills.length - 3}</span>` : ''}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-600 mb-1">Última Ação:</p>
+                            <p class="text-xs text-gray-800">${employee.recentActions[0]}</p>
+                        </div>
+
+                        ${employee.aiSuggestions.length > 0 ? `
+                        <div class="mb-4">
+                            <div class="ai-suggestion text-white text-xs px-3 py-2 rounded-lg">
+                                <i class="fas fa-lightbulb mr-1"></i>
+                                IA: ${employee.aiSuggestions[0]}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="flex gap-2">
+                            <button onclick="event.stopPropagation(); quickAction('feedback', ${employee.id})" 
+                                    class="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs py-2 px-3 rounded-lg transition-colors">
+                                <i class="fas fa-comment mr-1"></i>Feedback
+                            </button>
+                            <button onclick="event.stopPropagation(); quickAction('meeting', ${employee.id})" 
+                                    class="flex-1 bg-green-100 hover:bg-green-200 text-green-700 text-xs py-2 px-3 rounded-lg transition-colors">
+                                <i class="fas fa-calendar mr-1"></i>Reunião
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                'ativo': 'bg-green-100 text-green-800',
+                'ferias': 'bg-blue-100 text-blue-800',
+                'licenca': 'bg-yellow-100 text-yellow-800',
+                'onboarding': 'bg-purple-100 text-purple-800',
+                'desligado': 'bg-red-100 text-red-800'
+            };
+            return colors[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        function getStatusText(status) {
+            const texts = {
+                'ativo': 'Ativo',
+                'ferias': 'Férias',
+                'licenca': 'Licença',
+                'onboarding': 'Onboarding',
+                'desligado': 'Desligado'
+            };
+            return texts[status] || 'Indefinido';
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            let stars = '';
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+
+        function filterByStatus(status) {
+            currentFilter = status;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('filter-active');
+                btn.classList.add('bg-gray-200');
+            });
+            
+            const activeBtn = document.querySelector(`[data-status="${status}"]`);
+            activeBtn.classList.add('filter-active');
+            activeBtn.classList.remove('bg-gray-200');
+            
+            // Filter employees
+            if (status === 'all') {
+                filteredEmployees = [...employees];
+            } else {
+                filteredEmployees = employees.filter(emp => emp.status === status);
+            }
+            
+            applyAllFilters();
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            applyAllFilters(searchTerm);
+        }
+
+        function handleDepartmentFilter() {
+            const department = document.getElementById('departmentFilter').value;
+            applyAllFilters(null, department);
+        }
+
+        function applyAllFilters(searchTerm = null, department = null) {
+            let filtered = [...employees];
+            
+            // Apply status filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(emp => emp.status === currentFilter);
+            }
+            
+            // Apply search filter
+            const search = searchTerm || document.getElementById('searchInput').value.toLowerCase();
+            if (search) {
+                filtered = filtered.filter(emp => 
+                    emp.name.toLowerCase().includes(search) ||
+                    emp.position.toLowerCase().includes(search) ||
+                    emp.skills.some(skill => skill.toLowerCase().includes(search))
+                );
+            }
+            
+            // Apply department filter
+            const dept = department || document.getElementById('departmentFilter').value;
+            if (dept) {
+                filtered = filtered.filter(emp => emp.department === dept);
+            }
+            
+            filteredEmployees = filtered;
+            renderEmployeeCards();
+            updateEmployeeCount();
+        }
+
+        function updateEmployeeCount() {
+            document.getElementById('totalEmployees').textContent = `${filteredEmployees.length} Colaboradores`;
+        }
+
+        function showEmployeeDetails(employee) {
+            const modal = document.getElementById('employeeModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Coluna 1: Informações Básicas -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 mb-6">
+                            <div class="text-center mb-6">
+                                <img src="${employee.photo}" alt="${employee.name}" 
+                                     class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mx-auto mb-4">
+                                <h3 class="text-2xl font-bold text-gray-800">${employee.name}</h3>
+                                <p class="text-gray-600 text-lg">${employee.position}</p>
+                                <p class="text-gray-500">${employee.department}</p>
+                                <span class="inline-block mt-3 px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(employee.status)}">
+                                    ${getStatusText(employee.status)}
+                                </span>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                        <i class="fas fa-chart-line text-blue-600 mr-2"></i>Performance
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm text-gray-600">Desempenho</span>
+                                                <span class="font-semibold text-green-600">${employee.performance}%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: ${employee.performance}%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm text-gray-600">Engajamento</span>
+                                                <span class="font-semibold text-blue-600">${employee.engagement}%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: ${employee.engagement}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ações Rápidas -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="openFeedbackModal(${employee.id})" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition-colors text-sm font-medium">
+                                <i class="fas fa-comment mr-2"></i>Feedback
+                            </button>
+                            <button onclick="openMeetingModal(${employee.id})" class="bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition-colors text-sm font-medium">
+                                <i class="fas fa-calendar mr-2"></i>Reunião
+                            </button>
+                            <button onclick="openVacationModal(${employee.id})" class="bg-orange-600 hover:bg-orange-700 text-white py-3 px-4 rounded-lg transition-colors text-sm font-medium">
+                                <i class="fas fa-umbrella-beach mr-2"></i>Férias
+                            </button>
+                            <button onclick="openOnboardingModal(${employee.id})" class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg transition-colors text-sm font-medium">
+                                <i class="fas fa-user-plus mr-2"></i>Onboarding
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Coluna 2: Dados Pessoais e Profissionais -->
+                    <div class="lg:col-span-1">
+                        <div class="space-y-6">
+                            <!-- Dados Pessoais -->
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-user text-blue-600 mr-2"></i>Dados Pessoais
+                                </h4>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Email:</span>
+                                        <span class="font-medium">${employee.email}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Telefone:</span>
+                                        <span class="font-medium">${employee.phone}</span>
+                                    </div>
+                                    ${employee.address ? `
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Endereço:</span>
+                                        <span class="font-medium text-right">${employee.address}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${employee.birthDate ? `
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Nascimento:</span>
+                                        <span class="font-medium">${new Date(employee.birthDate).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${employee.emergencyContact ? `
+                                    <div class="border-t pt-3 mt-3">
+                                        <p class="text-gray-600 font-medium mb-2">Contato de Emergência:</p>
+                                        <div class="pl-3">
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Nome:</span>
+                                                <span class="font-medium">${employee.emergencyContact.name}</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Relação:</span>
+                                                <span class="font-medium">${employee.emergencyContact.relationship}</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Telefone:</span>
+                                                <span class="font-medium">${employee.emergencyContact.phone}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <!-- Dados Profissionais -->
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-briefcase text-green-600 mr-2"></i>Dados Profissionais
+                                </h4>
+                                <div class="space-y-3 text-sm">
+                                    ${employee.hireDate ? `
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Data de Admissão:</span>
+                                        <span class="font-medium">${new Date(employee.hireDate).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${employee.manager ? `
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Gestor:</span>
+                                        <span class="font-medium">${employee.manager}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${employee.salary ? `
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Salário:</span>
+                                        <span class="font-medium">${employee.salary}</span>
+                                    </div>
+                                    ` : ''}
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Contrato até:</span>
+                                        <span class="font-medium">${new Date(employee.contractExpiry).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                    ${employee.vacationDays ? `
+                                    <div class="border-t pt-3 mt-3">
+                                        <p class="text-gray-600 font-medium mb-2">Férias:</p>
+                                        <div class="pl-3">
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Total:</span>
+                                                <span class="font-medium">${employee.vacationDays.total} dias</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Utilizados:</span>
+                                                <span class="font-medium">${employee.vacationDays.used} dias</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Restantes:</span>
+                                                <span class="font-medium text-green-600">${employee.vacationDays.remaining} dias</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <!-- Benefícios -->
+                            ${employee.benefits ? `
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-gift text-purple-600 mr-2"></i>Benefícios
+                                </h4>
+                                <div class="flex flex-wrap gap-2">
+                                    ${employee.benefits.map(benefit => 
+                                        `<span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">${benefit}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <!-- Coluna 3: Skills, Histórico e Documentos -->
+                    <div class="lg:col-span-1">
+                        <div class="space-y-6">
+                            <!-- Skills e Certificações -->
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-star text-yellow-600 mr-2"></i>Skills & Certificações
+                                </h4>
+                                <div class="mb-4">
+                                    <p class="text-sm text-gray-600 mb-2">Habilidades:</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${employee.skills.map(skill => 
+                                            `<span class="skill-tag text-white text-xs px-3 py-1 rounded-full">${skill}</span>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                                ${employee.certifications ? `
+                                <div>
+                                    <p class="text-sm text-gray-600 mb-2">Certificações:</p>
+                                    <div class="space-y-2">
+                                        ${employee.certifications.map(cert => 
+                                            `<div class="bg-green-50 border border-green-200 rounded-lg p-2">
+                                                <span class="text-green-800 text-xs font-medium">${cert}</span>
+                                            </div>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <!-- Histórico de Ações -->
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-history text-indigo-600 mr-2"></i>Histórico Recente
+                                </h4>
+                                <div class="space-y-3 max-h-64 overflow-y-auto">
+                                    ${(employee.actionHistory || employee.recentActions.map((action, index) => ({
+                                        date: new Date(Date.now() - index * 86400000).toISOString().split('T')[0],
+                                        action: action,
+                                        type: 'geral'
+                                    }))).map(item => `
+                                        <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                                            <div class="flex-shrink-0">
+                                                <i class="fas fa-${getActionIcon(item.type)} text-${getActionColor(item.type)}-600 text-sm"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-sm text-gray-800">${item.action}</p>
+                                                <p class="text-xs text-gray-500">${new Date(item.date).toLocaleDateString('pt-BR')}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            
+                            <!-- Sugestões de IA -->
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-200">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-brain text-purple-600 mr-2"></i>Sugestões de IA
+                                </h4>
+                                <div class="space-y-3">
+                                    ${employee.aiSuggestions.map(suggestion => 
+                                        `<div class="ai-suggestion text-white text-sm px-4 py-3 rounded-lg">
+                                            <i class="fas fa-lightbulb mr-2"></i>${suggestion}
+                                        </div>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                            
+                            <!-- Documentos -->
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border">
+                                <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-file-alt text-gray-600 mr-2"></i>Documentos
+                                </h4>
+                                <div class="space-y-2">
+                                    ${(employee.documents || []).map(doc => 
+                                        typeof doc === 'string' ? 
+                                        `<div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                                            <span class="text-sm text-gray-800">${doc}</span>
+                                            <button class="text-blue-600 hover:text-blue-800 text-xs">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </div>` :
+                                        `<div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                                            <div>
+                                                <span class="text-sm text-gray-800 font-medium">${doc.name}</span>
+                                                <p class="text-xs text-gray-500">${new Date(doc.date).toLocaleDateString('pt-BR')}</p>
+                                            </div>
+                                            <button onclick="downloadDocument('${doc.name}', '${doc.type}')" class="text-blue-600 hover:text-blue-800 text-xs">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </div>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('employeeModal').classList.add('hidden');
+        }
+
+        // Funções auxiliares para o modal detalhado
+        function getActionIcon(type) {
+            const icons = {
+                'feedback': 'comment',
+                'reuniao': 'calendar',
+                'ferias': 'umbrella-beach',
+                'onboarding': 'user-plus',
+                'treinamento': 'graduation-cap',
+                'avaliacao': 'star',
+                'geral': 'check-circle'
+            };
+            return icons[type] || 'check-circle';
+        }
+
+        function getActionColor(type) {
+            const colors = {
+                'feedback': 'blue',
+                'reuniao': 'green',
+                'ferias': 'orange',
+                'onboarding': 'purple',
+                'treinamento': 'yellow',
+                'avaliacao': 'pink',
+                'geral': 'gray'
+            };
+            return colors[type] || 'gray';
+        }
+
+        // Funções para os botões de ação
+        function openFeedbackModal(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            showActionModal('Feedback', `
+                <form onsubmit="submitFeedback(event, ${employeeId})">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Feedback</label>
+                        <select name="feedbackType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="positivo">Positivo</option>
+                            <option value="construtivo">Construtivo</option>
+                            <option value="desenvolvimento">Desenvolvimento</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Comentários</label>
+                        <textarea name="comments" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" 
+                                  placeholder="Descreva seu feedback para ${employee.name}..."></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Avaliação (1-5)</label>
+                        <div class="flex space-x-2">
+                            ${[1,2,3,4,5].map(rating => 
+                                `<button type="button" onclick="setRating(${rating})" 
+                                         class="rating-btn w-10 h-10 border-2 border-gray-300 rounded-full hover:border-yellow-400 hover:bg-yellow-50">
+                                    <i class="fas fa-star text-gray-400"></i>
+                                </button>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="closeActionModal()" 
+                                class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors">
+                            Enviar Feedback
+                        </button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function openMeetingModal(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            showActionModal('Agendar Reunião', `
+                <form onsubmit="submitMeeting(event, ${employeeId})">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Título da Reunião</label>
+                        <input type="text" name="title" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" 
+                               placeholder="Ex: Reunião de acompanhamento com ${employee.name}">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data</label>
+                            <input type="date" name="date" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Horário</label>
+                            <input type="time" name="time" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Duração</label>
+                        <select name="duration" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                            <option value="30">30 minutos</option>
+                            <option value="60">1 hora</option>
+                            <option value="90">1h 30min</option>
+                            <option value="120">2 horas</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Agenda/Tópicos</label>
+                        <textarea name="agenda" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" 
+                                  placeholder="Tópicos a serem discutidos..."></textarea>
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="closeActionModal()" 
+                                class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-colors">
+                            Agendar Reunião
+                        </button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function openVacationModal(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            showActionModal('Gerenciar Férias', `
+                <form onsubmit="submitVacation(event, ${employeeId})">
+                    <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+                        <h4 class="font-medium text-blue-800 mb-2">Saldo de Férias</h4>
+                        <div class="grid grid-cols-3 gap-4 text-sm">
+                            <div class="text-center">
+                                <span class="block text-blue-600 font-bold text-lg">${employee.vacationDays?.total || 30}</span>
+                                <span class="text-blue-600">Total</span>
+                            </div>
+                            <div class="text-center">
+                                <span class="block text-orange-600 font-bold text-lg">${employee.vacationDays?.used || 0}</span>
+                                <span class="text-orange-600">Utilizados</span>
+                            </div>
+                            <div class="text-center">
+                                <span class="block text-green-600 font-bold text-lg">${employee.vacationDays?.remaining || 30}</span>
+                                <span class="text-green-600">Restantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data de Início</label>
+                            <input type="date" name="startDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data de Fim</label>
+                            <input type="date" name="endDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Férias</label>
+                        <select name="vacationType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                            <option value="completas">Férias Completas</option>
+                            <option value="parciais">Férias Parciais</option>
+                            <option value="coletivas">Férias Coletivas</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Observações</label>
+                        <textarea name="notes" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" 
+                                  placeholder="Observações adicionais..."></textarea>
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="closeActionModal()" 
+                                class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-lg transition-colors">
+                            Solicitar Férias
+                        </button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function openOnboardingModal(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            const onboardingTasks = [
+                { task: 'Documentação Pessoal', completed: true, date: '2024-01-15' },
+                { task: 'Treinamento de Segurança', completed: true, date: '2024-01-16' },
+                { task: 'Configuração de Sistemas', completed: true, date: '2024-01-17' },
+                { task: 'Apresentação da Equipe', completed: false, date: null },
+                { task: 'Treinamento Específico', completed: false, date: null },
+                { task: 'Avaliação 30 dias', completed: false, date: null }
+            ];
+            
+            showActionModal('Progresso de Onboarding', `
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-medium text-gray-800">Progresso Geral</h4>
+                        <span class="text-lg font-bold text-purple-600">${employee.onboardingProgress}%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-purple-500 h-3 rounded-full transition-all duration-500" style="width: ${employee.onboardingProgress}%"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-3 mb-6 max-h-64 overflow-y-auto">
+                    ${onboardingTasks.map((task, index) => `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-${task.completed ? 'check-circle text-green-500' : 'clock text-gray-400'} text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">${task.task}</p>
+                                    ${task.date ? `<p class="text-xs text-gray-500">Concluído em ${new Date(task.date).toLocaleDateString('pt-BR')}</p>` : ''}
+                                </div>
+                            </div>
+                            ${!task.completed ? `
+                                <button onclick="completeOnboardingTask(${employeeId}, ${index})" 
+                                        class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+                                    Marcar como Concluído
+                                </button>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="border-t pt-4">
+                    <h5 class="font-medium text-gray-800 mb-3">Adicionar Nova Tarefa</h5>
+                    <form onsubmit="addOnboardingTask(event, ${employeeId})">
+                        <div class="flex gap-3">
+                            <input type="text" name="newTask" placeholder="Nova tarefa de onboarding..." 
+                                   class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                            <button type="submit" 
+                                    class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg transition-colors">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="flex gap-3 mt-6">
+                    <button type="button" onclick="closeActionModal()" 
+                            class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                        Fechar
+                    </button>
+                    <button onclick="generateOnboardingReport(${employeeId})" 
+                            class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-colors">
+                        Gerar Relatório
+                    </button>
+                </div>
+            `);
+        }
+
+        // Função para mostrar modais de ação
+        function showActionModal(title, content) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.id = 'actionModal';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">${title}</h3>
+                        <button onclick="closeActionModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    ${content}
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function closeActionModal() {
+            const modal = document.getElementById('actionModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Funções de submissão dos formulários
+        function submitFeedback(event, employeeId) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            showNotification('Feedback enviado com sucesso!', 'success');
+            closeActionModal();
+        }
+
+        function submitMeeting(event, employeeId) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            showNotification('Reunião agendada com sucesso!', 'success');
+            closeActionModal();
+        }
+
+        function submitVacation(event, employeeId) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            showNotification('Solicitação de férias enviada!', 'success');
+            closeActionModal();
+        }
+
+        function downloadDocument(docName, docType) {
+            showNotification(`Download iniciado: ${docName}`, 'info');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : type === 'warning' ? 'exclamation' : 'info'}-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function quickAction(action, employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            
+            switch(action) {
+                case 'feedback':
+                    openFeedbackModal(employeeId);
+                    break;
+                case 'meeting':
+                    openMeetingModal(employeeId);
+                    break;
+                case 'vacation':
+                    openVacationModal(employeeId);
+                    break;
+                case 'onboarding':
+                    openOnboardingModal(employeeId);
+                    break;
+                default:
+                    showNotification(`Ação ${action} executada para ${employee.name}`, 'info');
+            }
+        }
+
+        // Implementar busca dinâmica
+        function searchEmployees() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredEmployees = employees.filter(employee => 
+                employee.name.toLowerCase().includes(searchTerm) ||
+                employee.position.toLowerCase().includes(searchTerm) ||
+                employee.department.toLowerCase().includes(searchTerm) ||
+                employee.skills.some(skill => skill.toLowerCase().includes(searchTerm))
+            );
+            
+            renderEmployees(filteredEmployees);
+            updateSearchResults(filteredEmployees.length, searchTerm);
+        }
+
+        function updateSearchResults(count, term) {
+            const resultsDiv = document.getElementById('searchResults');
+            if (term) {
+                resultsDiv.innerHTML = `
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-800">
+                                <i class="fas fa-search mr-2"></i>
+                                ${count} resultado(s) encontrado(s) para "${term}"
+                            </span>
+                            <button onclick="clearSearch()" class="text-blue-600 hover:text-blue-800 text-sm">
+                                Limpar busca
+                            </button>
+                        </div>
+                    </div>
+                `;
+                resultsDiv.classList.remove('hidden');
+            } else {
+                resultsDiv.classList.add('hidden');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResults').classList.add('hidden');
+            renderEmployees(employees);
+        }
+
+        // Implementar filtros dinâmicos
+        function filterByDepartment(department) {
+            // Atualizar botões ativos
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            const activeBtn = document.querySelector(`[onclick="filterByDepartment('${department}')"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                activeBtn.classList.add('bg-blue-600', 'text-white');
+            }
+
+            // Filtrar colaboradores
+            const filteredEmployees = department === 'all' ? 
+                employees : 
+                employees.filter(emp => emp.department === department);
+            
+            renderEmployees(filteredEmployees);
+            updateFilterResults(filteredEmployees.length, department);
+        }
+
+        function updateFilterResults(count, department) {
+            const resultsDiv = document.getElementById('searchResults');
+            if (resultsDiv && department !== 'all') {
+                resultsDiv.innerHTML = `
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-green-800">
+                                <i class="fas fa-filter mr-2"></i>
+                                ${count} colaborador(es) no departamento "${department}"
+                            </span>
+                            <button onclick="filterByDepartment('all')" class="text-green-600 hover:text-green-800 text-sm">
+                                Ver todos
+                            </button>
+                        </div>
+                    </div>
+                `;
+                resultsDiv.classList.remove('hidden');
+            } else if (resultsDiv) {
+                resultsDiv.classList.add('hidden');
+            }
+        }
+
+        // Funções de exportação
+        function exportToExcel() {
+            showNotification('Exportando dados para Excel...', 'info');
+            // Simular exportação
+            setTimeout(() => {
+                showNotification('Arquivo Excel gerado com sucesso!', 'success');
+            }, 2000);
+        }
+
+        function exportToPDF() {
+            showNotification('Gerando relatório PDF...', 'info');
+            // Simular exportação
+            setTimeout(() => {
+                showNotification('Relatório PDF gerado com sucesso!', 'success');
+            }, 2000);
+        }
+
+        function generateReport() {
+            showActionModal('Gerar Relatório Personalizado', `
+                <form onsubmit="submitCustomReport(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Relatório</label>
+                        <select name="reportType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="geral">Relatório Geral</option>
+                            <option value="performance">Performance</option>
+                            <option value="onboarding">Onboarding</option>
+                            <option value="ferias">Férias</option>
+                            <option value="treinamentos">Treinamentos</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Departamento</label>
+                        <select name="department" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="all">Todos os Departamentos</option>
+                            <option value="TI">TI</option>
+                            <option value="RH">RH</option>
+                            <option value="Financeiro">Financeiro</option>
+                            <option value="Comercial">Comercial</option>
+                            <option value="Operações">Operações</option>
+                            <option value="Marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data Início</label>
+                            <input type="date" name="startDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data Fim</label>
+                            <input type="date" name="endDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Formato</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="format" value="pdf" checked class="mr-2">
+                                <span class="text-sm">PDF</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="format" value="excel" class="mr-2">
+                                <span class="text-sm">Excel</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="format" value="csv" class="mr-2">
+                                <span class="text-sm">CSV</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="closeActionModal()" 
+                                class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors">
+                            Gerar Relatório
+                        </button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function submitCustomReport(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const reportType = formData.get('reportType');
+            const format = formData.get('format');
+            
+            showNotification(`Gerando relatório de ${reportType} em formato ${format.toUpperCase()}...`, 'info');
+            closeActionModal();
+            
+            setTimeout(() => {
+                showNotification(`Relatório de ${reportType} gerado com sucesso!`, 'success');
+            }, 3000);
+        }
+
+        function showAddEmployeeModal() {
+            alert('Funcionalidade de adicionar colaborador em desenvolvimento');
+        }
+
+        // Funções do painel administrativo
+        function showAdminPanel() {
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function showAddEmployeeForm() {
+            showActionModal('Adicionar Novo Colaborador', `
+                <form onsubmit="submitNewEmployee(event)">
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                            <input type="text" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Cargo</label>
+                            <input type="text" name="position" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Departamento</label>
+                            <select name="department" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Selecione...</option>
+                                <option value="TI">Tecnologia da Informação</option>
+                                <option value="RH">Recursos Humanos</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Comercial">Comercial</option>
+                                <option value="Operações">Operações</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data de Admissão</label>
+                            <input type="date" name="hireDate" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Telefone</label>
+                            <input type="tel" name="phone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Skills (separadas por vírgula)</label>
+                        <input type="text" name="skills" placeholder="JavaScript, React, Node.js" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="closeActionModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors">
+                            Adicionar Colaborador
+                        </button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function submitNewEmployee(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const newEmployee = {
+                id: employees.length + 1,
+                name: formData.get('name'),
+                position: formData.get('position'),
+                department: formData.get('department'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                status: 'onboarding',
+                hireDate: formData.get('hireDate'),
+                skills: formData.get('skills').split(',').map(s => s.trim()).filter(s => s),
+                onboardingProgress: 0,
+                lastEvaluation: { rating: 0, date: 'Pendente' },
+                recentActions: ['Colaborador adicionado ao sistema'],
+                aiSuggestions: ['Iniciar processo de onboarding'],
+                avatar: 'https://ui-avatars.com/api/?name=' + encodeURIComponent(formData.get('name')) + '&background=random'
+            };
+            
+            employees.push(newEmployee);
+            renderEmployees(employees);
+            showNotification(`Colaborador ${newEmployee.name} adicionado com sucesso!`, 'success');
+            closeActionModal();
+        }
+
+        function showBulkImport() {
+            showActionModal('Importação em Lote', `
+                <div class="text-center py-8">
+                    <i class="fas fa-upload text-4xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-600 mb-4">Arraste e solte um arquivo CSV ou Excel aqui</p>
+                    <input type="file" id="bulkFile" accept=".csv,.xlsx,.xls" class="hidden">
+                    <button onclick="document.getElementById('bulkFile').click()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                        Selecionar Arquivo
+                    </button>
+                    <div class="mt-4 text-sm text-gray-500">
+                        <p>Formatos aceitos: CSV, Excel (.xlsx, .xls)</p>
+                        <p>Máximo: 100 colaboradores por importação</p>
+                    </div>
+                </div>
+            `);
+        }
+
+        function showSystemLogs() {
+            const logs = [
+                { time: '2024-01-15 14:30', user: 'Admin', action: 'Colaborador adicionado', details: 'João Silva - TI' },
+                { time: '2024-01-15 14:25', user: 'Maria Santos', action: 'Feedback enviado', details: 'Para Ana Costa' },
+                { time: '2024-01-15 14:20', user: 'Admin', action: 'Relatório gerado', details: 'Relatório mensal de RH' },
+                { time: '2024-01-15 14:15', user: 'Carlos Lima', action: 'Reunião agendada', details: 'Com Pedro Oliveira' },
+                { time: '2024-01-15 14:10', user: 'Admin', action: 'Backup realizado', details: 'Backup automático do sistema' }
+            ];
+
+            showActionModal('Logs do Sistema', `
+                <div class="max-h-96 overflow-y-auto">
+                    <div class="space-y-3">
+                        ${logs.map(log => `
+                            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="font-medium text-gray-800">${log.action}</span>
+                                    <span class="text-sm text-gray-500">${log.time}</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Usuário: ${log.user}</p>
+                                <p class="text-sm text-gray-600">Detalhes: ${log.details}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="mt-4 flex gap-3">
+                    <button onclick="exportLogs()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Exportar Logs
+                    </button>
+                    <button onclick="clearLogs()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        <i class="fas fa-trash mr-2"></i>Limpar Logs
+                    </button>
+                </div>
+            `);
+        }
+
+        function showDepartmentManager() {
+            const departments = ['TI', 'RH', 'Financeiro', 'Comercial', 'Operações', 'Marketing'];
+            showActionModal('Gerenciar Departamentos', `
+                <div class="space-y-4">
+                    <div class="grid gap-3">
+                        ${departments.map(dept => `
+                            <div class="flex items-center justify-between p-3 border rounded-lg">
+                                <span class="font-medium">${dept}</span>
+                                <div class="flex gap-2">
+                                    <button onclick="editDepartment('${dept}')" class="text-blue-600 hover:text-blue-800">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteDepartment('${dept}')" class="text-red-600 hover:text-red-800">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex gap-2">
+                            <input type="text" id="newDepartment" placeholder="Nome do novo departamento" class="flex-1 p-2 border rounded-lg">
+                            <button onclick="addDepartment()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                <i class="fas fa-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+
+        function showNotifications() {
+            const notifications = [
+                { type: 'warning', message: 'Ana Costa - Férias vencem em 5 dias', time: '2 min atrás' },
+                { type: 'info', message: 'Novo colaborador em onboarding: João Silva', time: '1 hora atrás' },
+                { type: 'success', message: 'Relatório mensal gerado com sucesso', time: '2 horas atrás' },
+                { type: 'warning', message: 'Compliance: 3 colaboradores precisam de treinamento', time: '1 dia atrás' }
+            ];
+
+            document.getElementById('notificationsList').innerHTML = notifications.map(notif => `
+                <div class="p-4 border-b hover:bg-gray-50">
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1">
+                            <i class="fas fa-${notif.type === 'warning' ? 'exclamation-triangle text-yellow-500' : 
+                                                notif.type === 'success' ? 'check-circle text-green-500' : 
+                                                'info-circle text-blue-500'}"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-800">${notif.message}</p>
+                            <p class="text-xs text-gray-500 mt-1">${notif.time}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('notificationsPanel').classList.remove('hidden');
+        }
+
+        function closeNotifications() {
+            document.getElementById('notificationsPanel').classList.add('hidden');
+        }
+
+        // Funções auxiliares para administração
+        function exportLogs() {
+            showNotification('Logs exportados com sucesso!', 'success');
+            closeActionModal();
+        }
+
+        function clearLogs() {
+            if (confirm('Tem certeza que deseja limpar todos os logs?')) {
+                showNotification('Logs limpos com sucesso!', 'success');
+                closeActionModal();
+            }
+        }
+
+        function addDepartment() {
+            const newDept = document.getElementById('newDepartment').value.trim();
+            if (newDept) {
+                showNotification(`Departamento "${newDept}" adicionado com sucesso!`, 'success');
+                document.getElementById('newDepartment').value = '';
+            }
+        }
+
+        function editDepartment(dept) {
+            const newName = prompt(`Editar nome do departamento "${dept}":`, dept);
+            if (newName && newName !== dept) {
+                showNotification(`Departamento renomeado para "${newName}"`, 'success');
+            }
+        }
+
+        function deleteDepartment(dept) {
+            if (confirm(`Tem certeza que deseja excluir o departamento "${dept}"?`)) {
+                showNotification(`Departamento "${dept}" excluído`, 'success');
+            }
+        }
+
+        function showSkillsManager() {
+            showNotification('Gerenciador de Skills em desenvolvimento', 'info');
+        }
+
+        function showRolesManager() {
+            showNotification('Gerenciador de Cargos em desenvolvimento', 'info');
+        }
+
+        function showIntegrations() {
+            showNotification('Painel de Integrações em desenvolvimento', 'info');
+        }
+
+        function showSystemSettings() {
+            showNotification('Configurações do Sistema em desenvolvimento', 'info');
+        }
+
+        function showEmployeeArchive() {
+            showNotification('Arquivo de Colaboradores em desenvolvimento', 'info');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('employeeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            renderEmployees(employees);
+            
+            // Configurar busca em tempo real
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', searchEmployees);
+            
+            // Configurar filtro de departamento
+            const departmentFilter = document.getElementById('departmentFilter');
+            departmentFilter.addEventListener('change', function() {
+                filterByDepartment(this.value);
+            });
+            
+            // Configurar filtro inicial
+            filterByDepartment('all');
+            
+            // Configurar notificações automáticas
+            setTimeout(() => {
+                showNotification('Sistema de RH carregado com sucesso!', 'success');
+            }, 1000);
+            
+            // Simular notificações periódicas
+            setInterval(() => {
+                const notifications = [
+                    'Lembrete: Avaliação de desempenho pendente',
+                    'Novo colaborador em onboarding',
+                    'Relatório mensal disponível',
+                    'Compliance: Treinamento obrigatório'
+                ];
+                const randomNotif = notifications[Math.floor(Math.random() * notifications.length)];
+                if (Math.random() > 0.8) { // 20% de chance
+                    showNotification(randomNotif, 'info');
+                }
+            }, 30000); // A cada 30 segundos
+        });
+
+        // Adicionar botão de notificações no header
+        function addNotificationButton() {
+            const header = document.querySelector('header .flex.items-center.space-x-4');
+            if (header) {
+                const notifButton = document.createElement('button');
+                notifButton.onclick = showNotifications;
+                notifButton.className = 'relative bg-white p-2 rounded-lg shadow hover:shadow-md transition-all';
+                notifButton.innerHTML = `
+                    <i class="fas fa-bell text-gray-600"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                `;
+                header.appendChild(notifButton);
+            }
+        }
+
+        // Chamar função para adicionar botão de notificações
+        setTimeout(addNotificationButton, 500);
+    </script>
+</body>
+</html>

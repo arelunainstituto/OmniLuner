@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Grupo AreLuna - Sistema Integrado</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .areluna-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #f59e0b 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .status-online { color: #10b981; }
+        .status-development { color: #f59e0b; }
+        .status-planned { color: #6b7280; }
+        .company-card {
+            transition: all 0.3s ease;
+        }
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-amber-600 min-h-screen">
+    <!-- Header -->
+    <header class="glass-effect text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-building text-2xl text-amber-400"></i>
+                <h1 class="text-2xl font-bold">ERP Grupo AreLuna</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="status-development">
+                    <i class="fas fa-circle text-xs"></i> 60% Implementado
+                </span>
+                <button onclick="window.location.href='../index.html'" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-home mr-2"></i>Portal
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        <!-- Architecture Overview -->
+        <div class="glass-effect rounded-2xl p-6 mb-6 text-white">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">Arquitetura do Sistema</h2>
+                <i class="fas fa-sitemap text-amber-400 text-xl"></i>
+            </div>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-400">Next.js 14</div>
+                    <div class="text-sm opacity-80">App Router + TurboRepo</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-400">Supabase</div>
+                    <div class="text-sm opacity-80">PostgreSQL + Auth</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-400">Multi-Tenant</div>
+                    <div class="text-sm opacity-80">6 Empresas Configuradas</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-amber-400">Azure AD</div>
+                    <div class="text-sm opacity-80">SSO Empresarial</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Companies Grid -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-white mb-4">Empresas do Grupo</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Vespasian Ventures -->
+                <div class="company-card glass-effect rounded-2xl p-6 text-white cursor-pointer" onclick="openCompany('vespasian')">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-crown text-2xl text-amber-400 mr-3"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold">Vespasian Ventures</h3>
+                            <p class="text-sm opacity-80">Holding</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Módulos:</span>
+                            <span class="status-online">5/8 Ativos</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Usuários:</span>
+                            <span>12 Configurados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instituto AreLuna -->
+                <div class="company-card glass-effect rounded-2xl p-6 text-white cursor-pointer" onclick="openCompany('instituto')">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-heartbeat text-2xl text-red-400 mr-3"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold">Instituto AreLuna</h3>
+                            <p class="text-sm opacity-80">Clínica Médica</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Módulos:</span>
+                            <span class="status-development">3/6 Ativos</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Agendamentos:</span>
+                            <span class="status-planned">Planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pinklegion -->
+                <div class="company-card glass-effect rounded-2xl p-6 text-white cursor-pointer" onclick="openCompany('pinklegion')">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-car text-2xl text-pink-400 mr-3"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold">Pinklegion</h3>
+                            <p class="text-sm opacity-80">Comércio de Veículos</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Módulos:</span>
+                            <span class="status-development">4/7 Ativos</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Estoque:</span>
+                            <span class="status-online">Funcional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Papagaio Fotogênico -->
+                <div class="company-card glass-effect rounded-2xl p-6 text-white cursor-pointer" onclick="openCompany('papagaio')">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-camera text-2xl text-green-400 mr-3"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold">Papagaio Fotogênico</h3>
+                            <p class="text-sm opacity-80">Audiovisual</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Módulos:</span>
+                            <span class="status-development">3/5 Ativos</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Projetos:</span>
+                            <span class="status-online">Funcional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nuvens Autóctones -->
+                <div class="company-card glass-effect rounded-2xl p-6 text-white cursor-pointer" onclick="openCompany('nuvens')">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-truck text-2xl text-blue-400 mr-3"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold">Nuvens Autóctones</h3>
+                            <p class="text-sm opacity-80">Logística</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Módulos:</span>
+                            <span class="status-development">4/6 Ativos</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Frota:</span>
+                            <span class="status-online">Funcional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ProStoral -->
+                <div class="company-card glass-effect rounded-2xl p-6 text-white cursor-pointer" onclick="openCompany('prostoral')">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tooth text-2xl text-indigo-400 mr-3"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold">ProStoral</h3>
+                            <p class="text-sm opacity-80">Dispositivos Médicos</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Módulos:</span>
+                            <span class="status-development">3/5 Ativos</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Leasing:</span>
+                            <span class="status-online">Funcional</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modules Status -->
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <!-- Core Modules -->
+            <div class="glass-effect rounded-2xl p-6 text-white">
+                <h3 class="text-lg font-semibold mb-4">Módulos Core</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-users mr-2"></i>Gestão de Usuários</span>
+                        <span class="status-online text-sm">Funcional</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-building mr-2"></i>Multi-Tenancy</span>
+                        <span class="status-online text-sm">Funcional</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-exchange-alt mr-2"></i>Intercompany</span>
+                        <span class="status-online text-sm">Funcional</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-shield-alt mr-2"></i>Auditoria</span>
+                        <span class="status-development text-sm">Parcial</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Modules -->
+            <div class="glass-effect rounded-2xl p-6 text-white">
+                <h3 class="text-lg font-semibold mb-4">Módulos de Negócio</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-shopping-cart mr-2"></i>Procurement</span>
+                        <span class="status-development text-sm">Em Desenvolvimento</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-chart-line mr-2"></i>Financeiro</span>
+                        <span class="status-development text-sm">Em Desenvolvimento</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-truck mr-2"></i>Logística</span>
+                        <span class="status-development text-sm">Em Desenvolvimento</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fas fa-calendar mr-2"></i>Agendamentos</span>
+                        <span class="status-planned text-sm">Planejado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass-effect rounded-2xl p-6 text-white">
+            <h2 class="text-xl font-semibold mb-4">Ações Rápidas</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button onclick="launchERP()" class="bg-green-600 hover:bg-green-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-play text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Abrir ERP</div>
+                </button>
+                <button onclick="viewDashboard()" class="bg-blue-600 hover:bg-blue-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-tachometer-alt text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Dashboard</div>
+                </button>
+                <button onclick="viewDocumentation()" class="bg-purple-600 hover:bg-purple-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-book text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Documentação</div>
+                </button>
+                <button onclick="viewMigrations()" class="bg-amber-600 hover:bg-amber-700 p-4 rounded-xl transition-colors">
+                    <i class="fas fa-database text-xl mb-2"></i>
+                    <div class="text-sm font-semibold">Migrações</div>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect text-white text-center p-4 mt-8">
+        <p>&copy; 2024 Grupo AreLuna - ERP Integrado</p>
+        <p class="text-sm opacity-80">Arquitetura Multi-Tenant com Next.js, Supabase e Azure AD</p>
+    </footer>
+
+    <script>
+        function openCompany(company) {
+            const companies = {
+                'vespasian': 'Vespasian Ventures - Holding do Grupo',
+                'instituto': 'Instituto AreLuna - Clínica Médica',
+                'pinklegion': 'Pinklegion - Comércio de Veículos',
+                'papagaio': 'Papagaio Fotogênico - Audiovisual',
+                'nuvens': 'Nuvens Autóctones - Logística',
+                'prostoral': 'ProStoral - Dispositivos Médicos'
+            };
+            
+            alert(`Abrindo painel da empresa: ${companies[company]}\n\nFuncionalidades disponíveis:\n• Dashboard executivo\n• Gestão de usuários\n• Módulos específicos\n• Relatórios`);
+        }
+
+        function launchERP() {
+            alert('ERP Grupo AreLuna será executado em nova aba.\n\nPara executar localmente:\n1. cd "PROJETOS-TECNOLOGICOS/ERP-Grupo-AreLuna/erp-grupo-areluna"\n2. npm install\n3. npm run dev\n\nRequer configuração do Supabase e Azure AD.');
+            // Em produção, abriria: window.open('http://localhost:3000', '_blank');
+        }
+
+        function viewDashboard() {
+            alert('Dashboard Executivo:\n\n• Métricas consolidadas das 6 empresas\n• KPIs em tempo real\n• Gráficos interativos\n• Relatórios customizáveis\n\nStatus: 70% implementado');
+        }
+
+        function viewDocumentation() {
+            const docs = [
+                'README.md - Documentação principal',
+                'AZURE_AD_SETUP.md - Configuração SSO',
+                'MIGRATION_SUMMARY.md - Banco de dados',
+                'NEXTAUTH_SETUP.md - Autenticação'
+            ];
+            alert('Documentação disponível:\n\n' + docs.join('\n'));
+        }
+
+        function viewMigrations() {
+            alert('Migrações do Banco:\n\n• 001_core_entities.sql ✅\n• 002_intercompany_module.sql ✅\n• 003_procurement_module.sql 🔄\n• 004_logistics_module.sql 🔄\n• 005_nextauth_tables.sql ✅\n\nStatus: 60% completo');
+        }
+    </script>
+</body>
+</html>

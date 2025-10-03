@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo AreLuna - Portal Central</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transform: translateZ(0);
+        }
+        .card-hover:hover { 
+            transform: translateY(-8px) scale(1.02); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+        }
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-2">Grupo AreLuna</h1>
+                <p class="text-xl opacity-90">Portal Central de Navegação</p>
+                <div class="mt-4 text-sm opacity-75">
+                    <i class="fas fa-building mr-2"></i>
+                    Vespasian Ventures Holdings
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        
+        <!-- Módulos Comuns -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                <i class="fas fa-cogs text-blue-600 mr-3"></i>
+                Módulos Comuns
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- ERP -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('PROJETOS-TECNOLOGICOS/ERP-Grupo-AreLuna/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>60% Implementado
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">ERP Grupo AreLuna</h3>
+                        <p class="text-gray-600 mb-4">Sistema integrado de gestão empresarial</p>
+                        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            Next.js + Prisma
+                        </span>
+                    </div>
+                    <span class="tooltiptext">Sistema ERP multi-tenant em desenvolvimento. Gestão financeira, recursos humanos, inventário e relatórios consolidados para todas as empresas do grupo.</span>
+                </div>
+
+                <!-- Sistema de Inventário -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('PROJETOS-TECNOLOGICOS/Sistema-Inventario/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>85% Implementado
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-boxes text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Sistema de Inventário</h3>
+                        <p class="text-gray-600 mb-4">Gestão de patrimônio e ativos</p>
+                        <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                            React + Node.js
+                        </span>
+                    </div>
+                    <span class="tooltiptext">Sistema avançado de inventário com QR codes. Rastreamento em tempo real, alertas de estoque baixo, relatórios de movimentação e integração com ERP.</span>
+                </div>
+
+                <!-- Plataforma de Empréstimos -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg card-hover cursor-pointer tooltip" onclick="navigateTo('PROJETOS-TECNOLOGICOS/Plataforma-Emprestimos/')">
+                    <div class="text-center">
+                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-hand-holding-usd text-purple-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Plataforma de Empréstimos</h3>
+                        <p class="text-gray-600 mb-4">Sistema de gestão financeira</p>
+                        <div class="flex items-center justify-center mb-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                            <span class="text-green-600 text-sm font-medium">Online</span>
+                        </div>
+                        <span class="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                            Python + FastAPI
+                        </span>
+                    </div>
+                    <span class="tooltiptext">Plataforma completa para gestão de empréstimos. Análise de crédito, contratos digitais, cobrança automatizada e relatórios financeiros detalhados.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Empresas do Grupo -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                <i class="fas fa-building text-indigo-600 mr-3"></i>
+                Empresas do Grupo
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Instituto AreLuna -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('EMPRESAS/Instituto-AreLuna/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Em Desenvolvimento
+                        </span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-tooth text-red-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Instituto AreLuna</h3>
+                            <p class="text-sm text-gray-600">Clínica Odontológica</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="mr-3"><i class="fas fa-calendar mr-1"></i>Agendamentos</span>
+                        <span><i class="fas fa-user-md mr-1"></i>Tratamentos</span>
+                    </div>
+                    <span class="tooltiptext">Sistema de gestão clínica odontológica em desenvolvimento. Inclui agendamentos, prontuários e controle de tratamentos dentários.</span>
+                </div>
+
+                <!-- Pinklegion -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('EMPRESAS/Pinklegion/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Em Desenvolvimento
+                        </span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-pink-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-car text-pink-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Pinklegion</h3>
+                            <p class="text-sm text-gray-600">Comércio de Veículos</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="mr-3"><i class="fas fa-wrench mr-1"></i>Manutenção</span>
+                        <span><i class="fas fa-handshake mr-1"></i>Vendas</span>
+                    </div>
+                    <span class="tooltiptext">Plataforma de gestão para comércio de veículos. Controle de estoque, vendas, manutenção e relacionamento com clientes.</span>
+                </div>
+
+                <!-- Papagaio Fotogênico -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('EMPRESAS/Papagaio-Fotogenico/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Em Desenvolvimento
+                        </span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-camera text-yellow-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Papagaio Fotogênico</h3>
+                            <p class="text-sm text-gray-600">Audiovisual & Publicidade</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="mr-3"><i class="fas fa-video mr-1"></i>Produção</span>
+                        <span><i class="fas fa-bullhorn mr-1"></i>Marketing</span>
+                    </div>
+                    <span class="tooltiptext">Sistema de gestão para produção audiovisual. Controle de projetos, cronogramas, equipamentos e campanhas de marketing.</span>
+                </div>
+
+                <!-- Nuvens Autóctones -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('EMPRESAS/Nuvens-Autoctones/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Em Desenvolvimento
+                        </span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-truck text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Nuvens Autóctones</h3>
+                            <p class="text-sm text-gray-600">Logística & Transporte</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="mr-3"><i class="fas fa-route mr-1"></i>Rotas</span>
+                        <span><i class="fas fa-warehouse mr-1"></i>Armazém</span>
+                    </div>
+                    <span class="tooltiptext">Plataforma de gestão logística. Otimização de rotas, controle de frota, gestão de armazém e rastreamento de entregas.</span>
+                </div>
+
+                <!-- ProStoral -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('EMPRESAS/ProStoral/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Em Desenvolvimento
+                        </span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-teal-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-heartbeat text-teal-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">ProStoral</h3>
+                            <p class="text-sm text-gray-600">Dispositivos Médicos</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="mr-3"><i class="fas fa-cog mr-1"></i>Próteses</span>
+                        <span><i class="fas fa-file-contract mr-1"></i>Leasing</span>
+                    </div>
+                    <span class="tooltiptext">Sistema especializado em dispositivos médicos. Gestão de próteses, contratos de leasing e acompanhamento de pacientes.</span>
+                </div>
+
+                <!-- Vespasian Ventures -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover cursor-pointer relative tooltip" onclick="navigateTo('HOLDING/Vespasian-Ventures/')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Em Desenvolvimento
+                        </span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-chess-king text-gray-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Vespasian Ventures</h3>
+                            <p class="text-sm text-gray-600">Holding</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="mr-3"><i class="fas fa-chart-pie mr-1"></i>Relatórios</span>
+                        <span><i class="fas fa-file-alt mr-1"></i>Contratos</span>
+                    </div>
+                    <span class="tooltiptext">Dashboard executivo da holding. Consolidação de relatórios financeiros, contratos corporativos e análise de performance das empresas.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistemas Adicionais -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                <i class="fas fa-rocket text-purple-600 mr-3"></i>
+                Sistemas Adicionais
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- CRM Integrado -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/crm.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-clock mr-1"></i>Planejado
+                        </span>
+                    </div>
+                    <i class="fas fa-handshake text-orange-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">CRM Integrado</h4>
+                    <p class="text-xs text-gray-600">Gestão de Relacionamento</p>
+                    <span class="tooltiptext">Sistema CRM integrado com Zoho. Gestão completa de leads, oportunidades, pipeline de vendas e relacionamento com clientes.</span>
+                </div>
+                
+                <!-- Portal de RH -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('portal-rh')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>Cards Ativos
+                        </span>
+                    </div>
+                    <i class="fas fa-users text-blue-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Portal de RH</h4>
+                    <p class="text-xs text-gray-600">Recursos Humanos</p>
+                    <span class="tooltiptext">Sistema de cards inteligentes com IA para gestão de colaboradores e recursos humanos.</span>
+                </div>
+                
+                <!-- Sistema de Logística -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/logistics.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-clock mr-1"></i>Planejado
+                        </span>
+                    </div>
+                    <i class="fas fa-truck text-green-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Logística & Frota</h4>
+                    <p class="text-xs text-gray-600">Gestão de Transporte</p>
+                    <span class="tooltiptext">Sistema de logística e gestão de frota. Rastreamento de veículos, otimização de rotas, manutenção preventiva e controle de combustível.</span>
+                </div>
+                
+                <!-- Portal Clínico -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/clinic.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-clock mr-1"></i>Planejado
+                        </span>
+                    </div>
+                    <i class="fas fa-heartbeat text-red-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Portal Clínico</h4>
+                    <p class="text-xs text-gray-600">Gestão Médica</p>
+                    <span class="tooltiptext">Portal clínico completo. Agendamentos, prontuários eletrônicos, controle de tratamentos e gestão de consultórios médicos.</span>
+                </div>
+                
+                <!-- Portal de Analytics -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/analytics.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-clock mr-1"></i>Planejado
+                        </span>
+                    </div>
+                    <i class="fas fa-chart-line text-indigo-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Analytics & BI</h4>
+                    <p class="text-xs text-gray-600">Business Intelligence</p>
+                    <span class="tooltiptext">Plataforma de analytics e business intelligence. Dashboards interativos, relatórios automatizados e análise preditiva de dados.</span>
+                </div>
+                
+                <!-- Portal de Automação -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/automation.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-clock mr-1"></i>Planejado
+                        </span>
+                    </div>
+                    <i class="fas fa-robot text-purple-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Automação & IA</h4>
+                    <p class="text-xs text-gray-600">Inteligência Artificial</p>
+                    <span class="tooltiptext">Plataforma de automação e IA. Chatbots inteligentes, automação de processos, análise de sentimentos e machine learning.</span>
+                </div>
+                
+                <!-- Sistema de Inventário -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/inventory.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>85% Implementado
+                        </span>
+                    </div>
+                    <i class="fas fa-qrcode text-teal-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Inventário + QR</h4>
+                    <p class="text-xs text-gray-600">Gestão de Estoque</p>
+                    <span class="tooltiptext">Sistema avançado de inventário com QR codes. Rastreamento em tempo real, alertas de estoque baixo e integração com ERP.</span>
+                </div>
+                
+                <!-- ERP Grupo AreLuna -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer relative tooltip" onclick="navigateTo('pages/erp.html')">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded-full">
+                            <i class="fas fa-tools mr-1"></i>60% Implementado
+                        </span>
+                    </div>
+                    <i class="fas fa-sitemap text-amber-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">ERP AreLuna</h4>
+                    <p class="text-xs text-gray-600">Sistema Integrado</p>
+                    <span class="tooltiptext">Sistema ERP multi-tenant em desenvolvimento. Gestão financeira, recursos humanos, inventário e relatórios consolidados.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acesso Rápido -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                <i class="fas fa-bolt text-yellow-500 mr-3"></i>
+                Acesso Rápido
+            </h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer tooltip" onclick="navigateTo('DOCUMENTACAO/')">
+                    <i class="fas fa-book text-blue-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800">Documentação</h4>
+                    <span class="tooltiptext">Documentação técnica completa. Manuais de usuário, guias de instalação, APIs e procedimentos operacionais.</span>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer tooltip" onclick="navigateTo('FERRAMENTAS/')">
+                    <i class="fas fa-tools text-green-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800">Ferramentas</h4>
+                    <span class="tooltiptext">Conjunto de ferramentas administrativas. Backup, monitoramento, configurações avançadas e utilitários de manutenção.</span>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer tooltip" onclick="navigateTo('DADOS/')">
+                    <i class="fas fa-database text-purple-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800">Dados</h4>
+                    <span class="tooltiptext">Centro de dados corporativo. Relatórios consolidados, exportações, backups e análises históricas de todas as empresas.</span>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md text-center card-hover cursor-pointer tooltip" onclick="navigateTo('ARQUIVO/')">
+                    <i class="fas fa-archive text-gray-500 text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-800">Arquivo</h4>
+                    <span class="tooltiptext">Arquivo digital corporativo. Documentos históricos, contratos antigos, registros legais e backup de dados inativos.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2">&copy; 2024 Grupo AreLuna - Vespasian Ventures Holdings</p>
+            <p class="text-sm text-gray-400">Portal desenvolvido com Next.js, Tailwind CSS e Framer Motion</p>
+            <div class="mt-4">
+                <span class="inline-block bg-green-500 w-3 h-3 rounded-full mr-2 pulse-dot"></span>
+                <span class="text-sm">Sistema Online</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function navigateTo(path) {
+            const routes = {
+                // Sistemas funcionais
+                'PROJETOS-TECNOLOGICOS/Plataforma-Emprestimos/': './PROJETOS-TECNOLOGICOS/Plataforma-Emprestimos/Lending Platform/index.html',
+                'DOCUMENTACAO/': './DOCUMENTACAO/',
+                'FERRAMENTAS/': './FERRAMENTAS/',
+                'DADOS/': './DADOS/',
+                'ARQUIVO/': './ARQUIVO/',
+                
+                // Páginas informativas dos sistemas
+                'pages/crm.html': './pages/crm.html',
+                'pages/rh.html': './pages/rh.html',
+                'pages/logistics.html': './pages/logistics.html',
+                'pages/clinic.html': './pages/clinic.html',
+                'pages/analytics.html': './pages/analytics.html',
+                'pages/automation.html': './pages/automation.html',
+                'pages/inventory.html': './pages/inventory.html',
+                'pages/erp.html': './pages/erp.html'
+            };
+
+            // Sistemas em desenvolvimento - redirecionar para página 404 personalizada
+            const developmentSystems = [
+                'PROJETOS-TECNOLOGICOS/ERP-Grupo-AreLuna/',
+                'PROJETOS-TECNOLOGICOS/Sistema-Inventario/',
+                'EMPRESAS/Instituto-AreLuna/',
+                'EMPRESAS/Pinklegion/',
+                'EMPRESAS/Papagaio-Fotogenico/',
+                'EMPRESAS/Nuvens-Autoctones/',
+                'EMPRESAS/ProStoral/',
+                'HOLDING/Vespasian-Ventures/'
+            ];
+
+            // Módulos específicos que redirecionam para 404
+            const moduleRedirects = {
+                '/erp': '404.html',
+                '/inventario': '404.html',
+                '/emprestimos': './PROJETOS-TECNOLOGICOS/Plataforma-Emprestimos/Lending Platform/index.html',
+                '/instituto-areluna': '404.html',
+                '/agendamentos': '404.html',
+                '/tratamentos': '404.html',
+                '/pinklegion': '404.html',
+                '/manutencao': '404.html',
+                '/vendas': '404.html',
+                '/papagaio-fotogenico': '404.html',
+                '/producao': '404.html',
+                '/marketing': '404.html',
+                '/nuvens-autoctones': '404.html',
+                '/rotas': '404.html',
+                '/armazem': '404.html',
+                '/prostoral': '404.html',
+                '/proteses': '404.html',
+                '/leasing': '404.html',
+                '/vespasian-ventures': '404.html'
+            };
+
+            // Verificar se é um módulo específico
+            if (moduleRedirects[path]) {
+                if (path === '/emprestimos') {
+                    window.open(moduleRedirects[path], '_blank');
+                } else {
+                    window.location.href = moduleRedirects[path];
+                }
+                return;
+            }
+            
+            // Para páginas informativas, abrir diretamente
+            if (path.startsWith('pages/')) {
+                window.open(routes[path], '_blank');
+                return;
+            }
+            
+            if (routes[path]) {
+                // Para sistemas funcionais
+                if (path === 'PROJETOS-TECNOLOGICOS/Plataforma-Emprestimos/') {
+                    window.open(routes[path], '_blank');
+                } else if (['DOCUMENTACAO/', 'FERRAMENTAS/', 'DADOS/', 'ARQUIVO/'].includes(path)) {
+                    // Navegar para pastas funcionais
+                    console.log(`Navegando para: ${routes[path]}`);
+                } else {
+                    // Para outros sistemas, redirecionar para 404
+                    window.location.href = '404.html';
+                }
+            } else if (developmentSystems.includes(path)) {
+                // Sistemas em desenvolvimento - redirecionar para 404
+                window.location.href = '404.html';
+            } else {
+                // Fallback para caminhos não mapeados - redirecionar para 404
+                window.location.href = '404.html';
+            }
+        }
+
+        // Adicionar animações suaves ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.classList.add('fade-in');
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Adicionar efeito de hover nos cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
