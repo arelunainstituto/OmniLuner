@@ -6,9 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Account {
@@ -17,12 +16,12 @@ model Account {
   type             String
   provider         String
   providerAccountId String
-  refresh_token    String? @db.Text
-  access_token     String? @db.Text
+  refresh_token    String?
+  access_token     String?
   expires_at       Int?
   token_type       String?
   scope            String?
-  id_token         String? @db.Text
+  id_token         String?
   session_state    String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -44,7 +43,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  role          Role      @default(USER)
+  role          String    @default("USER")
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime  @default(now())
@@ -59,15 +58,10 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model News {
   id        String   @id @default(cuid())
   title     String
-  content   String   @db.Text
+  content   String
   image     String?
   published Boolean  @default(false)
   createdAt DateTime @default(now())
@@ -77,7 +71,7 @@ model News {
 model Event {
   id          String   @id @default(cuid())
   title       String
-  description String   @db.Text
+  description String
   startDate   DateTime
   endDate     DateTime
   location    String?
@@ -90,7 +84,7 @@ model Event {
 model Project {
   id          String   @id @default(cuid())
   title       String
-  description String   @db.Text
+  description String
   image       String?
   status      String   @default("ACTIVE")
   published   Boolean  @default(false)
@@ -103,7 +97,7 @@ model Contact {
   name      String
   email     String
   subject   String
-  message   String   @db.Text
+  message   String
   status    String   @default("PENDING")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

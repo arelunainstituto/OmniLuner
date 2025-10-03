@@ -40,5 +40,8 @@
     "url": "https://github.com/grupo-areluna/monorepo.git"
   },
   "author": "Grupo AreLuna",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "next-themes": "^0.4.6"
+  }
 }

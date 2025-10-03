@@ -1,0 +1,216 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// User roles as string literals for SQLite compatibility
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   // "ADMIN", "MANAGER", "USER", "VIEWER"
+  status    String   @default("ACTIVE") // "ACTIVE", "INACTIVE", "PENDING"
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // NextAuth.js relations
+  accounts Account[]
+  sessions Session[]
+
+  // Audit log relation
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Removed enum definitions for SQLite compatibility
+// Using string literals instead of enums
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String
+  nif         String   @unique
+  address     String?
+  city        String?
+  postalCode  String?
+  country     String   @default("Portugal")
+  vatRegime   String   @default("NORMAL") // "NORMAL", "SIMPLIFIED", "EXEMPTION", "GROUP"
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  users       User[]
+  invoices    Invoice[]
+  returns     VATReturn[]
+  exemptions  VATExemption[]
+  groups      VATGroupMember[]
+  simulations VATSimulation[]
+  auditLogs   AuditLog[]
+  leadGroups  VATGroup[]
+
+  @@map("companies")
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  number      String   @unique
+  companyId   String
+  type        String   // "SALE", "PURCHASE", "CREDIT_NOTE", "DEBIT_NOTE"
+  vatType     String   // "DEDUCTIBLE", "NON_DEDUCTIBLE", "MIXED"
+  amount      Float
+  vatAmount   Float
+  totalAmount Float
+  date        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@map("invoices")
+}
+
+model VATReturn {
+  id        String   @id @default(cuid())
+  companyId String
+  period    String
+  year      Int
+  status    String   @default("DRAFT") // "DRAFT", "SUBMITTED", "APPROVED", "REJECTED"
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@map("vat_returns")
+}
+
+model VATExemption {
+  id          String   @id @default(cuid())
+  companyId   String
+  article     String   // Article of CIVA
+  description String
+  isActive    Boolean  @default(true)
+  startDate   DateTime
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("vat_exemptions")
+}
+
+model VATGroup {
+  id          String   @id @default(cuid())
+  name        String
+  leadCompanyId String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  leadCompany Company @relation(fields: [leadCompanyId], references: [id])
+  members     VATGroupMember[]
+
+  @@map("vat_groups")
+}
+
+model VATGroupMember {
+  id        String   @id @default(cuid())
+  groupId   String
+  companyId String
+  joinedAt  DateTime @default(now())
+
+  // Relations
+  group   VATGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  company Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, companyId])
+  @@map("vat_group_members")
+}
+
+model VATSimulation {
+  id          String   @id @default(cuid())
+  companyId   String
+  type        String   // "EXEMPTION_RENUNCIATION", "GROUP_CONSOLIDATION", "REGIME_CHANGE"
+  description String?
+  result      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@map("vat_simulations")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  companyId String
+  action    String
+  entity    String
+  entityId  String
+  oldValues String? // JSON as string for SQLite compatibility
+  newValues String? // JSON as string for SQLite compatibility
+  timestamp DateTime @default(now())
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+}
