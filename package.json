@@ -1,0 +1,44 @@
+{
+  "name": "prothesislab-erp",
+  "version": "1.0.0",
+  "description": "Sistema completo de gestão para laboratórios de próteses dentárias - Grupo AreLuna",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -c-1 --cors",
+    "dev": "npx http-server . -p 8080 -c-1 --cors -o",
+    "build": "echo 'Static site - no build required'",
+    "deploy": "vercel --prod",
+    "preview": "vercel",
+    "lint": "echo 'Linting not configured yet'",
+    "test": "echo 'Tests not configured yet'"
+  },
+  "keywords": [
+    "dental",
+    "prosthesis",
+    "lab",
+    "management",
+    "erp",
+    "portugal",
+    "healthcare"
+  ],
+  "author": "Grupo AreLuna <suporte@areluna.pt>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arelunainstituto/OmniLuner.git"
+  },
+  "homepage": "https://github.com/arelunainstituto/OmniLuner#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
